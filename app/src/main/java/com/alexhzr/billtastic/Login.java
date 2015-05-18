@@ -1,17 +1,35 @@
 package com.alexhzr.billtastic;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.alexhzr.billtastic.HTTPRequest.ApiClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class Login extends ActionBarActivity {
+    EditText username;
+    EditText password;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        username = (EditText) findViewById(R.id.login_username);
+        password = (EditText) findViewById(R.id.login_password);
+        context = this.getApplicationContext();
     }
 
 
@@ -35,5 +53,25 @@ public class Login extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void login(View v) {
+        RequestParams params = new RequestParams();
+        params.put("username", username.getText().toString());
+        params.put("password", password.getText().toString());
+        ApiClient.post("login", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (response.getInt("SERVER_RESPONSE") == 1) {
+                        Toast.makeText(context, R.string.s_login_success, Toast.LENGTH_SHORT).show();
+                        //intent to main activity
+                    } else if (statusCode == 401)
+                        Toast.makeText(context, R.string.e_login_failure, Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s_login_success">Logged in!</string>
+
+    <string name="e_login_failure">Wrong username or password</string>
+</resources>
