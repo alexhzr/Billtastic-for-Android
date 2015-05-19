@@ -1,4 +1,4 @@
-package com.alexhzr.billtastic.HTTPRequest;
+package com.alexhzr.billtastic.httpRequest;
 
 import android.util.Log;
 
