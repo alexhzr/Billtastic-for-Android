@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/title_activity_main" >
-        </activity>
-        <activity
             android:name=".FragmentNavigationDrawer"
             android:label="@string/title_activity_navigation_drawer" >
+        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/title_activity_main" >
         </activity>
     </application>
 
