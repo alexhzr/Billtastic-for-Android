@@ -1,27 +1,48 @@
 package com.alexhzr.billtastic.activities;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.httpRequest.ApiClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.alexhzr.billtastic.fragments.CustomerList;
+import com.alexhzr.billtastic.fragments.OrderList;
+import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
+import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
+import java.util.ArrayList;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity {
     TextView tv;
+
+    String[] tagTitles;
+    String[] icons;
+    DrawerLayout dwLayout;
+    ListView dwList;
+
+    private static enum FragmentList {
+        none,
+        CUSTOMER_LIST,
+        ORDER_LIST
+    }
+
+    public static FragmentList actualFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv = (TextView) findViewById(R.id.fire);
+        initiateDrawer();
+        populateDrawer();
     }
 
 
@@ -47,30 +68,53 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void customers(View v) {
-        ApiClient.get("api/customer", null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.v("Lista clientes", response.toString());
-            }
-        });
+    private void initiateDrawer() {
+        tagTitles = getResources().getStringArray(R.array.item_names);
+        icons = getResources().getStringArray(R.array.item_icons);
+        dwLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        dwList = (ListView) findViewById(R.id.left_drawer);
+        dwList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
-    public void orders(View v) {
-        ApiClient.get("api/order", null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.v("Lista pedidos", response.toString());
-            }
-        });
+    private void populateDrawer() {
+        ArrayList<DrawerItem> dwItems = new ArrayList<>();
+        for (int i = 0; i < tagTitles.length; i++) {
+            dwItems.add(new DrawerItem(tagTitles[i], Resources.getSystem().getIdentifier("abc_ic_menu_copy_mtrl_am_alpha.png", "drawable", getBaseContext().getPackageResourcePath())));
+        }
+
+        dwList.setAdapter(new NavigationDrawerAdapter(this, dwItems));
     }
 
-    public void products(View v) {
-        ApiClient.get("api/product", null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.v("Lista productos", response.toString());
-            }
-        });
+    private void selectItem(int position) {
+        Fragment fragment = null;
+        Intent i;
+        switch (position) {
+            case 0:
+                fragment = new CustomerList();
+                actualFragment = FragmentList.CUSTOMER_LIST;
+                break;
+
+            case 1:
+                fragment = new OrderList();
+                actualFragment = FragmentList.ORDER_LIST;
+                break;
+
+        }
+
+        if (position != 5 && position != 4) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+            dwList.setItemChecked(position, true);
+            //setTituloActividad(titulos[position]);
+            dwLayout.closeDrawer(dwList);
+        }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
     }
 }
+
+

@@ -1,9 +1,9 @@
 package com.alexhzr.billtastic.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class Login extends ActionBarActivity {
+public class Login extends Activity {
     EditText username;
     EditText password;
     Context context;
