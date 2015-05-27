@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material">
-        <item name="android:actionBarStyle">@color/my_material_primary</item>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorPrimary">@color/my_material_primary</item>
         <item name="android:colorPrimaryDark">@color/my_material_primary_dark</item>
         <item name="android:textColor">@color/my_material_primary_text</item>
@@ -11,4 +10,12 @@
         <item name="android:background">@color/background_material_light</item>
         <item name="android:colorAccent">@color/my_material_accent</item>
     </style>
+
+    <style name="action_bar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@color/my_material_primary</item>
+        <item name="android:textColorPrimary">@color/my_material_primary_text</item>
+        <item name="android:textColorSecondary">@color/my_material_secondary_text</item>
+        <item name="actionMenuTextColor">@color/my_material_accent</item>
+    </style>
+
 </resources>

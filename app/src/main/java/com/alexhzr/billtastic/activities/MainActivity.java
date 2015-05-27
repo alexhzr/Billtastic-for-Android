@@ -1,11 +1,15 @@
 package com.alexhzr.billtastic.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +25,15 @@ import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends ActionBarActivity {
     TextView tv;
+    Toolbar toolbar;
 
     String[] tagTitles;
     String[] icons;
     DrawerLayout dwLayout;
     ListView dwList;
+    ActionBarDrawerToggle dwToggle;
 
     private static enum FragmentList {
         none,
@@ -41,26 +47,29 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initiateDrawer();
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        initializeDrawer();
         populateDrawer();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        if (dwToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         if (id == R.id.action_settings) {
             return true;
         }
@@ -68,12 +77,44 @@ public class MainActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initiateDrawer() {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        dwToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onPostCreate(savedInstanceState, persistentState);
+        //dwToggle.syncState();
+    }
+
+    private void initializeDrawer() {
         tagTitles = getResources().getStringArray(R.array.item_names);
         icons = getResources().getStringArray(R.array.item_icons);
         dwLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        dwList = (ListView) findViewById(R.id.left_drawer);
+        dwList = (ListView) findViewById(R.id.drawer_list);
         dwList.setOnItemClickListener(new DrawerItemClickListener());
+        dwToggle = new ActionBarDrawerToggle(this, dwLayout, R.string.drawer_open, R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("pepe");
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("pop");
+                invalidateOptionsMenu();
+            }
+        };
+        dwLayout.setDrawerListener(dwToggle);
+        dwLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                dwToggle.syncState();
+            }
+        });
     }
 
     private void populateDrawer() {
