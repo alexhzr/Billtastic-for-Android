@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +21,15 @@ import android.widget.TextView;
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.fragments.CustomerList;
 import com.alexhzr.billtastic.fragments.OrderList;
+import com.alexhzr.billtastic.httpRequest.ApiClient;
 import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
 import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -53,6 +61,67 @@ public class MainActivity extends ActionBarActivity {
         populateDrawer();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    public void test(View v) {
+        ApiClient.get("", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.v("mio", "guay");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.v("mio1", String.valueOf(statusCode));
+                if (throwable.getCause() instanceof ConnectTimeoutException) {
+                    Log.v("mio1", "timeout");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.v("mio2", String.valueOf(statusCode));
+                if (throwable.getCause() instanceof ConnectTimeoutException) {
+                    Log.v("mio2", "timeout");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.v("mio3", String.valueOf(statusCode));
+                if (throwable.getCause() instanceof ConnectTimeoutException) {
+                    Log.v("mio3", "timeout");
+                }
+            }
+        });
+    }
+
+    public void test2(View v) {
+        ApiClient.get("zxczxc", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.v("mio", "guay");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.v("mio1", String.valueOf(statusCode));
+                if ( throwable.getCause() instanceof ConnectTimeoutException) {
+                    Log.v("mio1", "timeout");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.v("mio2", String.valueOf(statusCode));
+                if ( throwable.getCause() instanceof ConnectTimeoutException) {
+                    Log.v("mio2", "timeout");
+                }
+            }
+        });
     }
 
 
