@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="code_0">Connection timeout</string>
+    <string name="code_404">Resource not avaliable</string>
 </resources>
