@@ -67,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void test(final View v) {
-        Date date = DateController.StringToDate("2015-05-12T10:23:00.000Z");
+        Date date = DateController.StringToDate("2014-04-12T15:21:00.000Z");
         Log.v("date", String.valueOf(date));
         String s = DateController.DateToString(date);
         Log.v("date", s);

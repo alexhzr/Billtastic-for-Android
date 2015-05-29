@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class DateController {
     public static Date StringToDate(String sDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         try {
             Date date = dateFormat.parse(sDate);
             return date;
