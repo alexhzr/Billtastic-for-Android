@@ -20,8 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.fragments.CustomerList;
 import com.alexhzr.billtastic.fragments.OrderList;
+import com.alexhzr.billtastic.fragments.ProductList;
 import com.alexhzr.billtastic.httpRequest.ApiClient;
 import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
 import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
@@ -29,7 +29,7 @@ import com.alexhzr.billtastic.util.DateController;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,36 +66,22 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
+    private void popo() {
+        ApiClient.get("", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.v("mio-popo", response.toString());
+                if (response.isNull(0)) Log.v("mio-popo", "vacio");
+            }
+        });
+    }
+
     public void test(final View v) {
         Date date = DateController.StringToDate("2014-04-12T15:21:00.000Z");
         Log.v("date", String.valueOf(date));
         String s = DateController.DateToString(date);
         Log.v("date", s);
     }
-
-    public void test2(final View v) {
-        v.setEnabled(false);
-        ApiClient.get("zxczxc", null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.v("mio", "guay");
-                v.setEnabled(true);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                ApiClient.doOnFailure(context, statusCode);
-                v.setEnabled(true);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                ApiClient.doOnFailure(context, statusCode);
-                v.setEnabled(true);
-            }
-        });
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,7 +158,7 @@ public class MainActivity extends ActionBarActivity {
         Intent i;
         switch (position) {
             case 0:
-                fragment = new CustomerList();
+                fragment = new ProductList();
                 actualFragment = FragmentList.CUSTOMER_LIST;
                 break;
 

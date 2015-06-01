@@ -11,7 +11,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://192.168.69.77:3000/";
+    private static final String BASE_URL = "http://192.168.1.102:3000/";
     PersistentCookieStore cookieStore;
 
     private static AsyncHttpClient client = new AsyncHttpClient();
