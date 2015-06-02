@@ -2,11 +2,11 @@ package com.alexhzr.billtastic.navigationDrawer;
 
 public class DrawerItem {
     private String name;
-    private int iconId;
+    private String icon;
 
-    public DrawerItem(String name, int iconId) {
+    public DrawerItem(String name, String icon) {
         this.name = name;
-        this.iconId = iconId;
+        this.icon = icon;
     }
 
     public String getName() {
@@ -17,11 +17,11 @@ public class DrawerItem {
         this.name = name;
     }
 
-    public int getIconId() {
-        return iconId;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setIconId(int iconId) {
-        this.iconId = iconId;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

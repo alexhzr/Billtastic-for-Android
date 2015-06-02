@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nd_customers">My customers</string>
+    <string name="nd_orders">Orders</string>
+    <string name="nd_products">My products</string>
+    <string name="nd_purchases">My purchases</string>
+    <string name="nd_logout">Log out</string>
+</resources>

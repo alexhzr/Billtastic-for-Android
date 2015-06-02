@@ -17,4 +17,9 @@
         <item name="android:textColorSecondary">@color/my_material_secondary_text</item>
         <item name="actionMenuTextColor">@color/my_material_accent</item>
     </style>
+
+    <style name="prueba">
+        <item name="android:textColor">@color/my_material_accent</item>
+        <item name="android:textSize">40dp</item>
+    </style>
 </resources>

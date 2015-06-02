@@ -3,7 +3,6 @@ package com.alexhzr.billtastic.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.fragments.OrderList;
+import com.alexhzr.billtastic.fragments.CustomerList;
 import com.alexhzr.billtastic.fragments.ProductList;
 import com.alexhzr.billtastic.httpRequest.ApiClient;
 import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
@@ -48,7 +47,8 @@ public class MainActivity extends ActionBarActivity {
     private static enum FragmentList {
         none,
         CUSTOMER_LIST,
-        ORDER_LIST
+        ORDER_LIST,
+        PRODUCT_LIST
     }
 
     public static FragmentList actualFragment;
@@ -117,8 +117,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void initializeDrawer() {
-        tagTitles = getResources().getStringArray(R.array.item_names);
-        icons = getResources().getStringArray(R.array.item_icons);
         dwLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         dwList = (ListView) findViewById(R.id.drawer_list);
         dwList.setOnItemClickListener(new DrawerItemClickListener());
@@ -145,9 +143,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void populateDrawer() {
+        tagTitles = getResources().getStringArray(R.array.item_names);
+        icons = getResources().getStringArray(R.array.item_icons);
         ArrayList<DrawerItem> dwItems = new ArrayList<>();
         for (int i = 0; i < tagTitles.length; i++) {
-            dwItems.add(new DrawerItem(tagTitles[i], Resources.getSystem().getIdentifier("abc_ic_menu_copy_mtrl_am_alpha.png", "drawable", getBaseContext().getPackageResourcePath())));
+            dwItems.add(new DrawerItem(tagTitles[i], icons[i]));
         }
 
         dwList.setAdapter(new NavigationDrawerAdapter(this, dwItems));
@@ -158,13 +158,13 @@ public class MainActivity extends ActionBarActivity {
         Intent i;
         switch (position) {
             case 0:
-                fragment = new ProductList();
+                fragment = new CustomerList();
                 actualFragment = FragmentList.CUSTOMER_LIST;
                 break;
 
             case 1:
-                fragment = new OrderList();
-                actualFragment = FragmentList.ORDER_LIST;
+                fragment = new ProductList();
+                actualFragment = FragmentList.PRODUCT_LIST;
                 break;
 
         }

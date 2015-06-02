@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="item_names">
+    <array name="item_names">
         <item>@string/nd_customers</item>
+        <item>@string/nd_orders</item>
+        <item>@string/nd_purchases</item>
         <item>@string/nd_products</item>
-    </string-array>
+    </array>
 
-    <string-array name="item_icons">
-        <item>@drawable/abc_ic_menu_share_mtrl_alpha</item>
-        <item>@drawable/abc_ic_menu_copy_mtrl_am_alpha</item>
-    </string-array>
+    <array name="item_icons">
+        <item>@string/icon_customers</item>
+        <item>@string/icon_orders</item>
+        <item>@string/icon_purchases</item>
+        <item>@string/icon_products</item>
+    </array>
 </resources>

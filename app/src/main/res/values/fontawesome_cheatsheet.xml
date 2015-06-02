@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon_customers">&#xf0c0;</string>
+    <string name="icon_orders">&#xf15c;</string>
+    <string name="icon_sent">&#xf1d8;</string>
+    <string name="icon_printed">&#xf02f;</string>
+    <string name="icon_email">&#xf0e0;</string>
+    <string name="icon_telephone">&#xf095;</string>
+    <string name="icon_purchases">&#xf1b3;</string>
+    <string name="icon_camera">&#xf030;</string>
+    <string name="icon_cerrar_sesion">&#xf08b;</string>
+    <string name="icon_favorite_customers">&#xf005;</string>
+    <string name="icon_no_favorite_customers">&#xf006;</string>
+    <string name="icon_new_line">&#xf055;</string>
+    <string name="icon_products">&#xf02c;</string>
+</resources>
