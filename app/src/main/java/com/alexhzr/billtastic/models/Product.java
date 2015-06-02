@@ -3,9 +3,6 @@ package com.alexhzr.billtastic.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by alex on 6/1/15.
- */
 public class Product {
     String name;
     float price;
