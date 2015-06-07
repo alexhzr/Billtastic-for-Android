@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
+import com.alexhzr.billtastic.util.FontController;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter {
 
     public NavigationDrawerAdapter(Context context, List objects) {
         super(context, 0, objects);
+        this.context = context;
     }
 
     @Override
@@ -31,7 +33,9 @@ public class NavigationDrawerAdapter extends ArrayAdapter {
         } else vh = (ViewHolder) convertView.getTag();
 
         DrawerItem item = (DrawerItem) getItem(position);
-        name.setText(item.getName());
+        vh.icon.setText(item.getIcon());
+        FontController.setFontToTextView(context, vh.icon, item.getIcon());
+        vh.name.setText(item.getName());
         return convertView;
     }
 

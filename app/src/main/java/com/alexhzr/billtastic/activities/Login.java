@@ -38,16 +38,12 @@ public class Login extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -58,10 +54,11 @@ public class Login extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void login(View v) {
+    public void login(final View v) {
         RequestParams params = new RequestParams();
         params.put("username", username.getText().toString());
         params.put("password", password.getText().toString());
+        v.setEnabled(false);
         ApiClient.post("login", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -71,10 +68,11 @@ public class Login extends Activity {
                         Toast.makeText(context, response.getString("SERVER_MESSAGE"), Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(context, MainActivity.class);
                         startActivity(i);
-                        //overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
                         finish();
-                    } else if (response.getInt("SERVER_RESPONSE") == 0)
+                    } else if (response.getInt("SERVER_RESPONSE") == 0) {
                         Toast.makeText(context, response.getString("SERVER_MESSAGE"), Toast.LENGTH_SHORT).show();
+                        v.setEnabled(true);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

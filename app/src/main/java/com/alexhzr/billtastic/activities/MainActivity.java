@@ -169,7 +169,7 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
-        if (position != 5 && position != 4) {
+        if (fragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
             dwList.setItemChecked(position, true);
             //setTituloActividad(titulos[position]);
