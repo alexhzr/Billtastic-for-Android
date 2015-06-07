@@ -17,9 +17,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.fragments.CustomerList;
+import com.alexhzr.billtastic.fragments.OrderList;
 import com.alexhzr.billtastic.fragments.ProductList;
 import com.alexhzr.billtastic.httpRequest.ApiClient;
 import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
@@ -48,7 +50,8 @@ public class MainActivity extends ActionBarActivity {
         none,
         CUSTOMER_LIST,
         ORDER_LIST,
-        PRODUCT_LIST
+        PRODUCT_LIST,
+        PURCHASE_LIST
     }
 
     public static FragmentList actualFragment;
@@ -163,6 +166,15 @@ public class MainActivity extends ActionBarActivity {
                 break;
 
             case 1:
+                fragment = new OrderList();
+                actualFragment = FragmentList.ORDER_LIST;
+                break;
+
+            case 2:
+                Toast.makeText(this, "My purchases", Toast.LENGTH_SHORT).show();
+                break;
+
+            case 3:
                 fragment = new ProductList();
                 actualFragment = FragmentList.PRODUCT_LIST;
                 break;
