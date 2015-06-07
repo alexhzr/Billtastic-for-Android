@@ -2,33 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="80dp"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
-    <!-- icon -->
     <TextView
         android:id="@+id/product_name"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_alignParentLeft="true"
+        android:layout_marginBottom="1dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        android:contentDescription="icon"
-        />
+        android:contentDescription="icon" />
 
-    <!-- title -->
     <TextView
         android:id="@+id/product_price"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/item_icon"
         android:layout_alignBaseline="@+id/item_icon"
-        android:textColor="@android:color/darker_gray"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/item_icon"
+        android:textColor="@android:color/darker_gray"
         android:textSize="22dp" />
 
 </LinearLayout>

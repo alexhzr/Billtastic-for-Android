@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- NAVIGATION DRAWER -->
     <dimen name="dw_icon_size">24sp</dimen>
     <dimen name="dw_font_size">16sp</dimen>
+
+    <!-- -->
+    <dimen name="size_favourite_customer">32sp</dimen>
+    <dimen name="size_icon_button">24sp</dimen>
 </resources>

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin_components">6dp</dimen>
     <dimen name="padding_list">12dp</dimen>
+    <dimen name="margin_standard_right">6dp</dimen>
 </resources>
