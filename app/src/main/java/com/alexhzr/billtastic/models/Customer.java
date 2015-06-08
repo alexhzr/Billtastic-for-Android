@@ -3,9 +3,7 @@ package com.alexhzr.billtastic.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Álex on 24/05/2015.
- */
+// TODO: refactor 'telephone' -> 'phone'
 public class Customer {
     String _id;
     String name;

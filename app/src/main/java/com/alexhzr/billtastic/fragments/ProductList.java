@@ -43,8 +43,8 @@ public class ProductList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_product_list, null);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycleview_productlist);
+        View view = inflater.inflate(R.layout.fragment_recycler_view, null);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_list);
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
