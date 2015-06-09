@@ -5,4 +5,5 @@
     <string name="nd_products">My products</string>
     <string name="nd_purchases">My purchases</string>
     <string name="nd_logout">Log out</string>
+    <string name="nd_dw_open">Select an option</string>
 </resources>

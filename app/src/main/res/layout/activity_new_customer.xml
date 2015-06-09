@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.alexhzr.billtastic.activities.NewCustomer">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <EditText
+                    android:id="@+id/newClient_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/h_newclient_name"
+                    android:imeOptions="actionNext"
+                    android:maxLength="60"
+                    android:nextFocusForward="@+id/newClient_ID" />
+
+                <EditText
+                    android:id="@+id/newClient_ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/h_newclient_id"
+                    android:imeOptions="actionNext"
+                    android:maxLength="20"
+                    android:nextFocusForward="@+id/nuevoCliente_provincia"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/newClient_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/h_newclient_address"
+                    android:imeOptions="actionNext"
+                    android:maxLength="40"
+                    android:nextFocusForward="@+id/newClient_phone" />
+
+                <EditText
+                    android:id="@+id/newClient_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/h_newclient_email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="40"
+                    android:nextFocusForward="@+id/newClient_phone" />
+
+                <EditText
+                    android:id="@+id/newClient_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/h_newclient_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="15" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</LinearLayout>

@@ -4,47 +4,38 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.fragments.CustomerList;
 import com.alexhzr.billtastic.fragments.OrderList;
 import com.alexhzr.billtastic.fragments.ProductList;
-import com.alexhzr.billtastic.httpRequest.ApiClient;
 import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
 import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
-import com.alexhzr.billtastic.util.DateController;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends ActionBarActivity {
-    TextView tv;
-    Context context;
-    Toolbar toolbar;
+    private Context context;
+    private Toolbar toolbar;
 
-    String[] tagTitles;
-    String[] icons;
-    DrawerLayout dwLayout;
-    ListView dwList;
-    ActionBarDrawerToggle dwToggle;
+    private String[] tagTitles;
+    private String[] icons;
+    private DrawerLayout dwLayout;
+    private ListView dwList;
+    private ActionBarDrawerToggle dwToggle;
+
+    private String activity_title;
 
     private static enum FragmentList {
         none,
@@ -61,29 +52,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this.getApplicationContext();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initializeDrawer();
         populateDrawer();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-    }
-
-    private void popo() {
-        ApiClient.get("", null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.v("mio-popo", response.toString());
-                if (response.isNull(0)) Log.v("mio-popo", "vacio");
-            }
-        });
-    }
-
-    public void test(final View v) {
-        Date date = DateController.StringToDate("2014-04-12T15:21:00.000Z");
-        Log.v("date", String.valueOf(date));
-        String s = DateController.DateToString(date);
-        Log.v("date", s);
     }
 
     @Override
@@ -100,7 +75,8 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_newclient) {
+            startActivity(new Intent(this, NewCustomer.class));
             return true;
         }
 
@@ -113,12 +89,6 @@ public class MainActivity extends ActionBarActivity {
         dwToggle.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
-        //dwToggle.syncState();
-    }
-
     private void initializeDrawer() {
         dwLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         dwList = (ListView) findViewById(R.id.drawer_list);
@@ -126,13 +96,12 @@ public class MainActivity extends ActionBarActivity {
         dwToggle = new ActionBarDrawerToggle(this, dwLayout, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle("pepe");
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("pop");
+                getSupportActionBar().setTitle(R.string.nd_dw_open);
                 invalidateOptionsMenu();
             }
         };
@@ -184,7 +153,7 @@ public class MainActivity extends ActionBarActivity {
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
             dwList.setItemChecked(position, true);
-            //setTituloActividad(titulos[position]);
+            getSupportActionBar().setTitle(tagTitles[position]);
             dwLayout.closeDrawer(dwList);
         }
     }

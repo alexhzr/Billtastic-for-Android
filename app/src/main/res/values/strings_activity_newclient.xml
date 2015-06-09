@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hints -->
+    <string name="h_newclient_name">Customer\'s name</string>
+    <string name="h_newclient_id">Customer\'s ID number</string>
+    <string name="h_newclient_address">Customer\'s address</string>
+    <string name="h_newclient_phone">Customer\'s phone number</string>
+    <string name="h_newclient_email">Customer\'s email</string>
+</resources>
