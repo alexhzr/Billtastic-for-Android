@@ -45,8 +45,6 @@ public class Login extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -64,13 +62,13 @@ public class Login extends Activity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     Log.v("Login", String.valueOf(statusCode));
-                    if (response.getInt("SERVER_RESPONSE") == 1) {
-                        Toast.makeText(context, response.getString("SERVER_MESSAGE"), Toast.LENGTH_SHORT).show();
+                    if (response.getInt(context.getString(R.string.server_response)) == 1) {
+                        Toast.makeText(context, response.getString(context.getString(R.string.server_message)), Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(context, MainActivity.class);
                         startActivity(i);
                         finish();
-                    } else if (response.getInt("SERVER_RESPONSE") == 0) {
-                        Toast.makeText(context, response.getString("SERVER_MESSAGE"), Toast.LENGTH_SHORT).show();
+                    } else if (response.getInt(context.getString(R.string.server_response)) == 0) {
+                        Toast.makeText(context, response.getString(context.getString(R.string.server_message)), Toast.LENGTH_SHORT).show();
                         v.setEnabled(true);
                     }
                 } catch (JSONException e) {

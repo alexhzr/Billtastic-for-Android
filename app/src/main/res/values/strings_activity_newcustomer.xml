@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_new_customer">New customer</string>
+
+    <!-- Hints -->
+    <string name="h_newcustomer_name">Customer\'s name</string>
+    <string name="h_newcustomer_id">Customer\'s ID number</string>
+    <string name="h_newcustomer_address">Customer\'s address</string>
+    <string name="h_newcustomer_phone">Customer\'s phone number</string>
+    <string name="h_newcustomer_email">Customer\'s email</string>
+    
+    <string name="newcustomer_succeed">Customer created successfully</string>
+</resources>

@@ -1,6 +1,5 @@
 package com.alexhzr.billtastic.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
 import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
-    private Context context;
     private Toolbar toolbar;
 
     private String[] tagTitles;
@@ -51,7 +49,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = this.getApplicationContext();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

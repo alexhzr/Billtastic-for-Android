@@ -16,7 +16,10 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_navigation_drawer">NavigationDrawer</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_new_customer">New customer</string>
+    <!-- SERVER STRINGS -->
+    <string name="server_response">SERVER_RESPONSE</string>
+    <string name="server_message">SERVER_MESSAGE</string>
+
+    <!-- COMMON ERRORS -->
+    <string name="e_cant_be_empty">This field can't be empty</string>
 </resources>

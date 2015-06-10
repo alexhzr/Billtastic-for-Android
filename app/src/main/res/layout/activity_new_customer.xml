@@ -28,48 +28,48 @@
                 android:paddingTop="@dimen/activity_vertical_margin">
 
                 <EditText
-                    android:id="@+id/newClient_name"
+                    android:id="@+id/newcustomer_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/h_newclient_name"
+                    android:hint="@string/h_newcustomer_name"
                     android:imeOptions="actionNext"
                     android:maxLength="60"
-                    android:nextFocusForward="@+id/newClient_ID" />
+                    android:nextFocusForward="@+id/newcustomer_ID" />
 
                 <EditText
-                    android:id="@+id/newClient_ID"
+                    android:id="@+id/newcustomer_ID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/h_newclient_id"
+                    android:hint="@string/h_newcustomer_id"
                     android:imeOptions="actionNext"
                     android:maxLength="20"
-                    android:nextFocusForward="@+id/nuevoCliente_provincia"
+                    android:nextFocusForward="@+id/newcustomer_address"
                     android:visibility="gone" />
 
                 <EditText
-                    android:id="@+id/newClient_address"
+                    android:id="@+id/newcustomer_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/h_newclient_address"
+                    android:hint="@string/h_newcustomer_address"
                     android:imeOptions="actionNext"
                     android:maxLength="40"
-                    android:nextFocusForward="@+id/newClient_phone" />
+                    android:nextFocusForward="@+id/newcustomer_email" />
 
                 <EditText
-                    android:id="@+id/newClient_email"
+                    android:id="@+id/newcustomer_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/h_newclient_email"
+                    android:hint="@string/h_newcustomer_email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLength="40"
-                    android:nextFocusForward="@+id/newClient_phone" />
+                    android:nextFocusForward="@+id/newcustomer_phone" />
 
                 <EditText
-                    android:id="@+id/newClient_phone"
+                    android:id="@+id/newcustomer_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/h_newclient_phone"
+                    android:hint="@string/h_newcustomer_phone"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="15" />
