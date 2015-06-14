@@ -48,7 +48,9 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         vh.customer.setText(data.get(position).getCustomer());
         vh.order_date.setText(DateController.DateToString(data.get(position).getOrder_date()));
         vh.total.setText(String.valueOf(data.get(position).getTotal()));
-        vh.pending.setText(String.valueOf(data.get(position).getPending()));
+        if (data.get(position).getState() == Order.State.PENDING)
+            vh.pending.setText(String.valueOf(data.get(position).getPending()));
+
         if (data.get(position).isPrinted())
             FontController.setFontToTextView(context, vh.ic_printed, context.getString(R.string.icon_printed));
 

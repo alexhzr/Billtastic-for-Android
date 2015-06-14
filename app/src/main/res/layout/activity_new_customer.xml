@@ -27,6 +27,21 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin">
 
+                <TextView
+                    style="@style/title"
+                    android:text="@string/hd_newcustomer_info" />
+
+                <include layout="@layout/line_divider" />
+
+                <EditText
+                    android:id="@+id/newcustomer_ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/h_newcustomer_id"
+                    android:imeOptions="actionNext"
+                    android:maxLength="20"
+                    android:nextFocusForward="@+id/newcustomer_address" />
+
                 <EditText
                     android:id="@+id/newcustomer_name"
                     android:layout_width="match_parent"
@@ -36,15 +51,11 @@
                     android:maxLength="60"
                     android:nextFocusForward="@+id/newcustomer_ID" />
 
-                <EditText
-                    android:id="@+id/newcustomer_ID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/h_newcustomer_id"
-                    android:imeOptions="actionNext"
-                    android:maxLength="20"
-                    android:nextFocusForward="@+id/newcustomer_address"
-                    android:visibility="gone" />
+                <TextView
+                    style="@style/title"
+                    android:text="@string/hd_newcustomer_contact" />
+
+                <include layout="@layout/line_divider" />
 
                 <EditText
                     android:id="@+id/newcustomer_address"

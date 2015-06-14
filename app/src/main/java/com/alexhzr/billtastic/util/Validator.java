@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Validator {
 
-    public static boolean checkIfEmpty(ArrayList<EditText> components, Context ctx) {
+    public static boolean areNotEmpty(ArrayList<EditText> components, Context ctx) {
         for (EditText et : components) {
             if (et.getText().toString().equals("")) {
                 et.requestFocus();

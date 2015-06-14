@@ -106,7 +106,7 @@ public class NewProduct extends ActionBarActivity {
     }
 
     private void existsReference() {
-        if (Validator.checkIfEmpty(components, this)) {
+        if (Validator.areNotEmpty(components, this)) {
             mJsonHttpResponseHandler responseHandler = new mJsonHttpResponseHandler(this) {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

@@ -1,6 +1,7 @@
 package com.alexhzr.billtastic.activities;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ public class NewCustomer extends ActionBarActivity {
     private Toolbar toolbar;
     private Context context;
 
+    private EditText id;
     private EditText name;
     private EditText address;
     private EditText email;
@@ -44,18 +46,19 @@ public class NewCustomer extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        id = (EditText) findViewById(R.id.newcustomer_ID);
         name = (EditText) findViewById(R.id.newcustomer_name);
         address = (EditText) findViewById(R.id.newcustomer_address);
         email = (EditText) findViewById(R.id.newcustomer_email);
         phone = (EditText) findViewById(R.id.newcustomer_phone);
 
         components = new ArrayList<>();
+        components.add(id);
         components.add(name);
         components.add(address);
         components.add(email);
         components.add(phone);
     }
-
 
 
     @Override
@@ -69,33 +72,55 @@ public class NewCustomer extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_newclient_submit) {
-            newCustomer();
+            existsIdNumber();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void newCustomer() {
-        if (Validator.checkIfEmpty(components, context)) {
-            RequestParams params = new RequestParams();
-            params.put("name", name.getText().toString());
-            params.put("phone", phone.getText().toString());
-            params.put("email", email.getText().toString());
-            params.put("address", address.getText().toString());
-            AsyncClient.post("api/customer", params, new mJsonHttpResponseHandler(this) {
+    private void existsIdNumber() {
+        if (Validator.areNotEmpty(components, context)) {
+            AsyncClient.get("/api/customer/check_id/" + id.getText().toString(), null, new mJsonHttpResponseHandler(this) {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
                     try {
-                        if (response.getInt(context.getString(R.string.server_response)) == 1) {
-                            Toast.makeText(name.getContext(), R.string.newcustomer_succeed, Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
+                        if (response.getInt(context.getString(R.string.server_response)) == 2)
+                            AsyncClient.redirectToLogin(context);
+                        else if (response.getInt(context.getString(R.string.server_response)) == 3) {
+                            id.setBackgroundColor(Color.RED);
+                            id.requestFocus();
+                            Toast.makeText(context, R.string.e_newcustomer_id_used, Toast.LENGTH_SHORT).show();
+                        } else if (response.getInt(context.getString(R.string.server_response)) == 4)
+                            newCustomer();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
         }
+    }
+
+    private void newCustomer() {
+        RequestParams params = new RequestParams();
+        params.put("id_number", id.getText().toString());
+        params.put("name", name.getText().toString());
+        params.put("phone", phone.getText().toString());
+        params.put("email", email.getText().toString());
+        params.put("address", address.getText().toString());
+        AsyncClient.post("/api/customer", params, new mJsonHttpResponseHandler(this) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (response.getInt(context.getString(R.string.server_response)) == 1) {
+                        Toast.makeText(name.getContext(), R.string.newcustomer_succeed, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

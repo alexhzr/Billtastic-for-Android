@@ -17,15 +17,17 @@ public class Order {
     boolean printed;
     boolean sent;
 
-    private enum State { DRAFT, PAID, PENDING }
+    public enum State { DRAFT, PAID, PENDING }
 
     public Order(JSONObject json) {
         try {
             this._id = json.getString("_id");
             this.order_date = DateController.StringToDate(json.getString("order_date"));
-            this.customer = json.getString("customer");
+            JSONObject customer = new JSONObject();
+            customer = json.getJSONObject("customer");
+            this.customer = customer.getString("name");
             this.total = json.getDouble("total");
-            int state = json.getInt("state");
+            int state = json.getInt("status");
             switch (state) {
                 case 0:
                     this.state = State.DRAFT;
