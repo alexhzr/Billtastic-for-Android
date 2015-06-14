@@ -15,7 +15,9 @@ public class Product {
         try {
             this.reference = json.getString("reference");
             this.description = json.getString("description");
+            this.sell_price = json.getDouble("sell_price");
             this.purchase_price = json.getDouble("purchase_price");
+            this.tax_price = json.getDouble("tax_price");
             this.tax = json.getString("tax");
         } catch (JSONException e) {
             e.printStackTrace();

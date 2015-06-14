@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import com.alexhzr.billtastic.adapters.TaxSpinnerAdapter;
 import com.alexhzr.billtastic.httpRequest.AsyncClient;
 import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.models.Tax;
+import com.alexhzr.billtastic.util.MathController;
 import com.alexhzr.billtastic.util.Validator;
 import com.loopj.android.http.RequestParams;
 
@@ -38,7 +41,11 @@ public class NewProduct extends ActionBarActivity {
     private EditText benefit;
     private Spinner tax;
 
-    private boolean exists;
+    private double cTax;
+    private double cSellPrice;
+    private double cPurchasePrice;
+    private double cTaxPrice;
+    private double cBenefit;
 
     private ArrayList<Tax> taxes;
     private TaxSpinnerAdapter adTaxes;
@@ -94,6 +101,8 @@ public class NewProduct extends ActionBarActivity {
                 }
             }
         });
+
+        setPricesListener();
     }
 
     private void existsReference() {
@@ -146,6 +155,78 @@ public class NewProduct extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    private void setPricesListener() {
+        tax.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (view != null)
+                    recalculatePrices(view);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                adapterView.setSelection(1);
+            }
+        });
+
+        View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (!((EditText) view).getText().toString().equals(""))
+                        recalculatePrices(view);
+                }
+                if (view == purchase_price) {
+                    if(!hasFocus && ((EditText) view).getText().toString().equals("")){
+                        purchase_price.setText(MathController.doubleToString(0.00));
+                    } else if (hasFocus && ((EditText) view).getText().toString().equals(MathController.doubleToString(0.00))){
+                        purchase_price.setText("");
+                    }
+                }
+            }
+        };
+
+        purchase_price.setOnFocusChangeListener(focusChangeListener);
+        benefit.setOnFocusChangeListener(focusChangeListener);
+        sell_price.setOnFocusChangeListener(focusChangeListener);
+        tax_price.setOnFocusChangeListener(focusChangeListener);
+    }
+
+    private void recalculatePrices(View v) {
+        cPurchasePrice = (MathController.stringToDouble(purchase_price.getText().toString()));
+        cTax = taxes.get(tax.getSelectedItemPosition()).getValue();
+        cTax = cTax / 100;
+
+        if (v.equals(benefit)) {
+            cBenefit = (MathController.stringToDouble(benefit.getText().toString())) / 100;
+            cSellPrice = cPurchasePrice + (cPurchasePrice * cBenefit);
+            cTaxPrice = cSellPrice + (cSellPrice * cTax);
+
+            sell_price.setText(MathController.doubleToString(cSellPrice));
+            tax_price.setText(MathController.doubleToString(cTaxPrice));
+
+        } else if (v.equals(sell_price)) {
+            cSellPrice = MathController.stringToDouble(sell_price.getText().toString());
+            cTaxPrice = cSellPrice + (cSellPrice * cTax);
+            cBenefit = (100 * (cSellPrice - cPurchasePrice)) / cPurchasePrice;
+
+            tax_price.setText(MathController.doubleToString(cTaxPrice));
+            benefit.setText(MathController.doubleToString(cBenefit));
+
+        } else if (v.equals(tax_price)) {
+            cTaxPrice = MathController.stringToDouble(tax_price.getText().toString());
+            cSellPrice = cTaxPrice / (1 + cTax);
+            cBenefit = (100 * (cSellPrice - cPurchasePrice)) / cPurchasePrice;
+
+            sell_price.setText(MathController.doubleToString(cSellPrice));
+            benefit.setText(MathController.doubleToString(cBenefit));
+
+        } else {
+            cTaxPrice = cSellPrice + (cSellPrice * cTax);
+            tax_price.setText(MathController.doubleToString(cTaxPrice));
+        }
     }
 
 

@@ -21,15 +21,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public ProductListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.detail_product_list, null);
+                .inflate(R.layout.detail_product_list, parent, false);
 
         return new ViewHolder(itemLayoutView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //holder.name.setText(data.get(position).getName());
-        //holder.price.setText(String.valueOf(data.get(position).getPrice()));
+        holder.reference.setText(data.get(position).getReference());
+        holder.description.setText(data.get(position).getDescription());
+        holder.sell_price.setText(String.valueOf(data.get(position).getSell_price()));
     }
 
     @Override
@@ -38,13 +39,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name;
-        public TextView price;
+        public TextView reference;
+        public TextView description;
+        public TextView sell_price;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            name = (TextView) itemLayoutView.findViewById(R.id.product_name);
-            price = (TextView) itemLayoutView.findViewById(R.id.product_price);
+            reference = (TextView) itemLayoutView.findViewById(R.id.product_reference);
+            description = (TextView) itemLayoutView.findViewById(R.id.product_description);
+            sell_price = (TextView) itemLayoutView.findViewById(R.id.product_sell_price);
         }
     }
 }
