@@ -1,21 +1,22 @@
 package com.alexhzr.billtastic.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.adapters.ProductListAdapter;
-import com.alexhzr.billtastic.httpRequest.ApiClient;
+import com.alexhzr.billtastic.httpRequest.AsyncClient;
+import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.models.Product;
 import com.alexhzr.billtastic.util.SimpleDividerItemDecoration;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -29,12 +30,15 @@ public class ProductList extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.ItemDecoration itemDecoration;
     private ArrayList<Product> products;
+    private TextView noResults;
+    private Context context;
 
     public ProductList() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getActivity();
         products = new ArrayList<>();
         loadProducts();
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -49,15 +53,15 @@ public class ProductList extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+        noResults = (TextView) view.findViewById(R.id.empty);
 
         return view;
     }
 
     private void loadProducts() {
-        ApiClient.get("api/product", null, new JsonHttpResponseHandler() {
+        AsyncClient.get("/api/product", null, new mJsonHttpResponseHandler(context) {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.v("productos", response.toString());
                 if (!response.isNull(0)) {
                     for (int i = 0; i < response.length(); i++)
                         try {
@@ -66,17 +70,22 @@ public class ProductList extends Fragment {
                             e.printStackTrace();
                         }
                     mAdapter.notifyDataSetChanged();
-                } else products = null;
+                } else {
+                    products = null;
+                    noResults.setText(R.string.s_no_products_found);
+                    mRecyclerView.setVisibility(View.GONE);
+                    noResults.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                ApiClient.doOnFailure(getActivity(), statusCode);
+                AsyncClient.doOnFailure(getActivity(), statusCode);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                ApiClient.doOnFailure(getActivity(), statusCode);
+                AsyncClient.doOnFailure(getActivity(), statusCode);
             }
         });
     }

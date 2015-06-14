@@ -4,13 +4,18 @@
     tools:context="com.alexhzr.billtastic.activities.MainActivity">
 
     <item android:id="@+id/action_newclient"
-        android:title="@string/ic_action_newcustomer"
+        android:title="@string/action_newcustomer"
         android:orderInCategory="100"
         app:showAsAction="always"
         android:icon="@drawable/ic_action_add_person" />
 
     <item android:id="@+id/action_newproduct"
-        android:title="@string/ic_action_newproduct"
+        android:title="@string/action_newproduct"
         app:showAsAction="always"
+        android:icon="@drawable/ic_action_new" />
+
+    <item android:id="@+id/action_newtax"
+        android:title="@string/action_newtax"
+        android:showAsAction="always"
         android:icon="@drawable/ic_action_new" />
 </menu>

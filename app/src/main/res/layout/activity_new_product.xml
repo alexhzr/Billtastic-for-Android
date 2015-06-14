@@ -1,0 +1,187 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.alexhzr.billtastic.activities.NewProduct">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <TextView
+                    style="@style/title"
+                    android:text="@string/hd_newproduct_product_info" />
+
+                <include layout="@layout/line_divider" />
+
+
+                <EditText
+                    android:id="@+id/newProduct_reference"
+                    style="@style/edit_text"
+                    android:hint="@string/h_newproduct_reference"
+                    android:maxLength="15" />
+
+                <TextView
+                    style="@style/title"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/hd_newproduct_product_info" />
+
+                <include layout="@layout/line_divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/h_newproduct_tax"/>
+
+                    <Spinner
+                        android:id="@+id/newProduct_tax"
+                        style="@style/edit_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:focusable="false" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/h_newproduct_purchase_price" />
+
+                    <EditText
+                        android:id="@+id/newProduct_purchase_price"
+                        style="@style/edit_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:text="@string/s_zero_price"
+                        android:imeOptions="actionNext"
+                        android:inputType="number|numberDecimal"
+                        android:nextFocusForward="@+id/newProduct_benefit" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/h_newproduct_benefit" />
+
+
+                    <EditText
+                        android:id="@+id/newProduct_benefit"
+                        style="@style/edit_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.8"
+                        android:hint="@string/h_newproduct_benefit"
+                        android:imeOptions="actionNext"
+                        android:inputType="number|numberDecimal"
+                        android:nextFocusForward="@+id/newProduct_sell_price" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="%"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/h_newproduct_sell_price" />
+
+                    <EditText
+                        android:id="@+id/newProduct_sell_price"
+                        style="@style/edit_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:hint="@string/h_newproduct_sell_price"
+                        android:imeOptions="actionNext"
+                        android:inputType="number|numberDecimal"
+                        android:nextFocusForward="@+id/newProduct_tax_price" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/h_newproduct_tax_price" />
+
+                    <EditText
+                        android:id="@+id/newProduct_tax_price"
+                        style="@style/edit_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:hint="@string/h_newproduct_tax_price"
+                        android:imeOptions="actionNext"
+                        android:inputType="number|numberDecimal" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/title"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/hd_newproduct_description" />
+
+                <include layout="@layout/line_divider" />
+
+                <EditText
+                    android:id="@+id/newProduct_description"
+                    style="@style/edit_text"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/h_newproduct_description"
+                    android:maxLength="60" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</LinearLayout>

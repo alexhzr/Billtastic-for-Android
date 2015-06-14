@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s_newproduct_success">Product created successfully</string>
+
+    <!-- FORM HEADERS -->
+    <string name="hd_newproduct_product_info">Product info</string>
+    <string name="hd_newproduct_description">Product description</string>
+
+    <!-- HINTS -->
+    <string name="h_newproduct_reference">Reference</string>
+    <string name="h_newproduct_name">Name</string>
+    <string name="h_newproduct_purchase_price">Purchase price</string>
+    <string name="h_newproduct_price">Price</string>
+    <string name="h_newproduct_sell_price">Sell price</string>
+    <string name="h_newproduct_tax_price">Price with taxes</string>
+    <string name="h_newproduct_tax">Tax</string>
+    <string name="h_newproduct_benefit">Benefit</string>
+    <string name="h_newproduct_description">Description</string>
+
+    <!-- ERRORS -->
+    <string name="e_reference_exists">This reference already exists</string>
+</resources>
