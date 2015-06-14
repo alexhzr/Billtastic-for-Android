@@ -3,8 +3,9 @@
     <string name="fontawesome">fontawesome.ttf</string>
 
     <!-- MENU STRINGS -->
-    <string name="ic_action_newproduct">New product</string>
-    <string name="ic_action_newcustomer">New customer</string>
+    <string name="action_newproduct">New product</string>
+    <string name="action_newcustomer">New customer</string>
+    <string name="action_newtax">New tax</string>
 
     <!-- NAVIGATION DRAWER -->
     <string name="drawer_open">Open navigation drawer</string>
@@ -20,6 +21,18 @@
     <string name="server_response">SERVER_RESPONSE</string>
     <string name="server_message">SERVER_MESSAGE</string>
 
+    <!-- COMMON STRINGS -->
+    <string name="s_zero_price">0.00</string>
+    <string name="s_no_customers_found">No customers found</string>
+    <string name="s_no_products_found">No products found</string>
+    <string name="s_no_orders_found">No orders found</string>
+
     <!-- COMMON ERRORS -->
-    <string name="e_cant_be_empty">This field can't be empty</string>
+    <string name="e_session_expired">Your session has expired</string>
+    <string name="e_cant_be_empty">This field can\'t be empty</string>
+    <string name="e_petition">Request error</string>
+
+    <!-- ACTIVITY NAMES -->
+    <string name="title_activity_new_product">New product</string>
+    <string name="title_activity_new_tax">New tax</string>
 </resources>

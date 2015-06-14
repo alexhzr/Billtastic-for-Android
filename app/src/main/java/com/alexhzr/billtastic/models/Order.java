@@ -11,9 +11,9 @@ public class Order {
     String _id;
     Date order_date;
     String customer;
-    float total;
+    double total;
     State state;
-    float pending;
+    double pending;
     int printed;
     int sent;
 
@@ -24,7 +24,7 @@ public class Order {
             this._id = json.getString("_id");
             this.order_date = DateController.StringToDate(json.getString("order_date"));
             this.customer = json.getString("customer");
-            this.total = Float.parseFloat(json.getString("total"));
+            this.total = json.getDouble("total");
             int state = json.getInt("state");
             switch (state) {
                 case 0:
@@ -37,7 +37,7 @@ public class Order {
                     this.state = State.PENDING;
                     break;
             }
-            this.pending = Float.parseFloat(json.getString("pending"));
+            this.pending = json.getDouble("pending");
             this.printed = json.getInt("printed");
             this.sent = json.getInt("sent");
         } catch (JSONException e) {

@@ -4,28 +4,42 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Product {
-    String name;
-    float price;
+    String reference;
+    String description;
+    double purchase_price;
+    double sell_price;
+    double tax_price;
     String tax;
-
-    //TODO: añadir más campos al producto (precio venta, descripción, precio compra, etc)
 
     public Product(JSONObject json) {
         try {
-            this.name = json.getString("name");
-            this.price = Float.parseFloat(json.getString("price"));
+            this.reference = json.getString("reference");
+            this.description = json.getString("description");
+            this.purchase_price = json.getDouble("purchase_price");
             this.tax = json.getString("tax");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public String getName() {
-        return name;
+    public String getReference() {
+        return reference;
     }
 
-    public float getPrice() {
-        return price;
+    public String getDescription() {
+        return description;
+    }
+
+    public double getPurchase_price() {
+        return purchase_price;
+    }
+
+    public double getSell_price() {
+        return sell_price;
+    }
+
+    public double getTax_price() {
+        return tax_price;
     }
 
     public String getTax() {
