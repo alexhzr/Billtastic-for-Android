@@ -1,110 +1,178 @@
 package com.alexhzr.billtastic.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
+import com.alexhzr.billtastic.adapters.OrderListAdapter;
+import com.alexhzr.billtastic.httpRequest.AsyncClient;
+import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
+import com.alexhzr.billtastic.models.Order;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class OrderList extends Fragment {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private TextView noResults;
+    private OrderListAdapter adapter;
+    private ArrayList<Order> orders;
+    private Context context;
+    private int page;
+    private int customer_id;
+    private boolean todas;
+    private String query;
 
+    private TextView noResults;
+    private ListView listView;
+
+    private int estadoFactura;
+    private static final int ITEMS_BAJO_LISTA = 5;
+
+    private static final int CODIGO_CONSULTA_FACTURAS = 1;
+    private static final int CODIGO_PEDIR_PDF = 2;
+
+
+    public static OrderList newInstance(boolean todasFacturas, String query, int idCliente, int estadoFactura) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("todo", todasFacturas);
+        bundle.putString("query", query);
+        bundle.putInt("customer_id", idCliente);
+        bundle.putInt("estadoFactura", estadoFactura);
+
+        OrderList fragmento = new OrderList();
+        fragmento.setArguments(bundle);
+
+        return fragmento;
+    }
+
+    public OrderList() {
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        page = 0;
+        context = getActivity();
+        if (orders != null)
+            cargarLista();
+        inicializarListView();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ItemData itemData[] = {
-                new ItemData("Hola", R.drawable.abc_ab_share_pack_mtrl_alpha),
-                new ItemData("Adios", R.drawable.abc_btn_check_material)
-        };
-
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new MyAdapter(itemData);
-
+        orders = new ArrayList<>();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_orders_list, null);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycleview_orderlist);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mAdapter);
-        noResults = (TextView) view.findViewById(R.id.empty);
-
-        return view;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_listview, container, false);
     }
 
-    public class ItemData {
-        private String title;
-        private int imageUrl;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
 
-        public ItemData(String title,int imageUrl){
-            this.title = title;
-            this.imageUrl = imageUrl;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public int getImageUrl() {
-            return imageUrl;
-        }
-
-        public void setImageUrl(int imageUrl) {
-            this.imageUrl = imageUrl;
+        if (args != null) {
+            todas = args.getBoolean("todo");
+            query = args.getString("query");
+            customer_id = args.getInt("customer_id");
+            estadoFactura = args.getInt("estadoFactura");
         }
     }
 
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private ItemData[] itemsData;
 
-        public MyAdapter(ItemData[] itemsData) {
-            this.itemsData = itemsData;
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("all", todas);
+    }
+
+    private void cargarLista() {
+        String url = null;
+        switch (estadoFactura) {
+            case 0:
+                url = "/api/order/pending";
+                break;
+            case 1:
+                url = "/api/order/paid";
+                break;
+            case 2:
+                url = "/api/order/draft";
+                break;
         }
+        AsyncClient.get(url, null, new mJsonHttpResponseHandler(context) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                noResults.setText(R.string.s_no_orders_found);
+                listView.setEmptyView(noResults);
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject json = null;
+                    orders.clear();
+                    try {
+                        json = response.getJSONObject(i);
+                        Order order = new Order(json);
 
-        @Override
-        public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemLayoutView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycleview_item_layout, null);
+                        if (!orders.contains(order))
+                            orders.add(order);
 
-            return new ViewHolder(itemLayoutView);
-        }
+                        if (adapter != null)
+                            adapter.notifyDataSetChanged();
+                    } catch (JSONException e1) {
+                        orders = null;
+                    }
+                }
+            }
+        });
+    }
 
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int position) {
-            viewHolder.txtViewTitle.setText(itemsData[position].getTitle());
-            viewHolder.imgViewIcon.setImageResource(itemsData[position].getImageUrl());
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView txtViewTitle;
-            public ImageView imgViewIcon;
-
-            public ViewHolder(View itemLayoutView) {
-                super(itemLayoutView);
-                txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.item_title);
-                imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
+    private void inicializarListView() {
+        if (orders != null) {
+            if (getView() != null) {
+                listView = (ListView) getView().findViewById(R.id.listview);
+                noResults = (TextView) getView().findViewById(R.id.empty);
+                adapter = new OrderListAdapter(orders, getActivity(), R.layout.detail_order_list);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        verFactura(position);
+                    }
+                });
             }
         }
+    }
 
-        @Override
-        public int getItemCount() {
-            return itemsData.length;
+    /*private void intentFactura(String respuesta) {
+        Intent intentCompartir = new Intent(context, LectorPDF.class);
+        intentCompartir.putExtra("pdf", respuesta);
+        context.startActivity(intentCompartir);
+    }*/
+
+    private void verFactura(int position) {
+        Toast.makeText(getActivity(), "Verias facutra pedido "+orders.get(position).get_id(), Toast.LENGTH_SHORT).show();
+        /*String url = Constantes.PDF_URL + String.valueOf(orders.get(position).getIdImpresion());
+        AsyncTaskGet a = new AsyncTaskGet(context, this, url, true, CODIGO_PEDIR_PDF);
+        if (context.getClass().getName().contains(MostrarCliente.class.getSimpleName())) {
+            ((MostrarCliente) context).mostrarDialogo(context);
+        } else if (context.getClass().getName().contains(Principal.class.getSimpleName())) {
+            ((Principal) context).mostrarDialogo(context);
         }
+        a.execute(new Hashtable<String, String>());*/
     }
 }

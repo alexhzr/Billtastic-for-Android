@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s_orderlist_draft">Draft</string>
+    <string name="s_orderlist_paid">Paid</string>
+    <string name="s_orderlist_pending">Pending</string>
+    <string name="s_orderlist_other">Other</string>
+</resources>

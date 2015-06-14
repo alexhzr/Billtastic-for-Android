@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.fragments.CustomerList;
-import com.alexhzr.billtastic.fragments.OrderList;
+import com.alexhzr.billtastic.fragments.OrderListContainer;
 import com.alexhzr.billtastic.fragments.ProductList;
 import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
 import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
@@ -133,7 +133,11 @@ public class MainActivity extends ActionBarActivity {
                 break;
 
             case 1:
-                fragment = new OrderList();
+                fragment = new OrderListContainer();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("todas", true);
+                bundle.putString("query", "");
+                fragment.setArguments(bundle);
                 actualFragment = FragmentList.ORDER_LIST;
                 break;
 

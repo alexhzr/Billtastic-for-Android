@@ -14,8 +14,8 @@ public class Order {
     double total;
     State state;
     double pending;
-    int printed;
-    int sent;
+    boolean printed;
+    boolean sent;
 
     private enum State { DRAFT, PAID, PENDING }
 
@@ -38,10 +38,42 @@ public class Order {
                     break;
             }
             this.pending = json.getDouble("pending");
-            this.printed = json.getInt("printed");
-            this.sent = json.getInt("sent");
+            this.printed = json.getBoolean("printed");
+            this.sent = json.getBoolean("sent");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public Date getOrder_date() {
+        return order_date;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public double getPending() {
+        return pending;
+    }
+
+    public boolean isSent() {
+        return sent;
+    }
+
+    public boolean isPrinted() {
+        return printed;
     }
 }
