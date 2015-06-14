@@ -16,6 +16,7 @@ public class OrderList extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private TextView noResults;
 
 
     @Override
@@ -38,6 +39,8 @@ public class OrderList extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+        noResults = (TextView) view.findViewById(R.id.empty);
+
         return view;
     }
 

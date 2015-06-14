@@ -70,10 +70,11 @@ public class MainActivity extends ActionBarActivity {
 
         if (dwToggle.onOptionsItemSelected(item)) {
             return true;
-        }
-
-        if (id == R.id.action_newclient) {
+        } else if (id == R.id.action_newclient) {
             startActivity(new Intent(this, NewCustomer.class));
+            return true;
+        } else if (id == R.id.action_newproduct) {
+            startActivity(new Intent(this, NewProduct.class));
             return true;
         }
 

@@ -1,17 +1,20 @@
 package com.alexhzr.billtastic.httpRequest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
+import com.alexhzr.billtastic.activities.Login;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
-public class ApiClient {
-    private static final String BASE_URL = "http://billtasticjs-alexhzr.rhcloud.com/";
+public class AsyncClient {
+    //private static final String BASE_URL = "https://billtasticjs-alexhzr.rhcloud.com/";
+    private static final String BASE_URL = "http://192.168.1.103:3000";
     PersistentCookieStore cookieStore;
 
     private static AsyncHttpClient client = new AsyncHttpClient();
@@ -19,12 +22,12 @@ public class ApiClient {
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.setTimeout(10000);
         client.get(getAbsoluteUrl(url), params, responseHandler);
-        Log.v("ApiClient", getAbsoluteUrl(url));
+        Log.v("AsyncClient", getAbsoluteUrl(url));
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
-        Log.v("ApiClient", getAbsoluteUrl(url));
+        Log.v("AsyncClient", getAbsoluteUrl(url));
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {
@@ -40,5 +43,11 @@ public class ApiClient {
                 Toast.makeText(context, R.string.code_404, Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    public static void redirectToLogin(Context context) {
+        context.startActivity(new Intent(context, Login.class));
+        Toast.makeText(context, R.string.e_session_expired, Toast.LENGTH_SHORT).show();
+
     }
 }

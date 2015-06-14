@@ -12,9 +12,11 @@ public class Validator {
 
     public static boolean checkIfEmpty(ArrayList<EditText> components, Context ctx) {
         for (EditText et : components) {
-            et.requestFocus();
-            Toast.makeText(ctx, R.string.e_cant_be_empty, Toast.LENGTH_SHORT).show();
-            return false;
+            if (et.getText().toString().equals("")) {
+                et.requestFocus();
+                Toast.makeText(ctx, R.string.e_cant_be_empty, Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
 
         return true;

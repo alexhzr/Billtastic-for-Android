@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.httpRequest.ApiClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.alexhzr.billtastic.httpRequest.AsyncClient;
+import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -57,7 +57,7 @@ public class Login extends Activity {
         params.put("username", username.getText().toString());
         params.put("password", password.getText().toString());
         v.setEnabled(false);
-        ApiClient.post("login", params, new JsonHttpResponseHandler() {
+        AsyncClient.post("/login", params, new mJsonHttpResponseHandler(this) {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {

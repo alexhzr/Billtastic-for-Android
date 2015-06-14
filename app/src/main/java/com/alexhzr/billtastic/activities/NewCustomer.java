@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.httpRequest.ApiClient;
+import com.alexhzr.billtastic.httpRequest.AsyncClient;
 import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.util.Validator;
 import com.loopj.android.http.RequestParams;
@@ -83,7 +83,7 @@ public class NewCustomer extends ActionBarActivity {
             params.put("phone", phone.getText().toString());
             params.put("email", email.getText().toString());
             params.put("address", address.getText().toString());
-            ApiClient.post("api/customer", params, new mJsonHttpResponseHandler(this) {
+            AsyncClient.post("api/customer", params, new mJsonHttpResponseHandler(this) {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     try {
