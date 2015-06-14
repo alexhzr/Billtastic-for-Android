@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/my_material_primary"
-    android:padding="@dimen/padding_list"
+    android:padding="@dimen/p_list"
     android:orientation="horizontal">
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/dw_icon"
         android:background="@color/my_material_primary"
-        android:layout_marginRight="@dimen/margin_components"
+        android:layout_marginRight="@dimen/m_components"
         android:textSize="@dimen/dw_icon_size"
         android:layout_weight="2"/>
 

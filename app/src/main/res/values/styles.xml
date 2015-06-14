@@ -17,4 +17,39 @@
         <item name="android:textColorSecondary">@color/my_material_secondary_text</item>
         <item name="actionMenuTextColor">@color/my_material_accent</item>
     </style>
+
+    <!-- COMMON ELEMENTS -->
+    <style name="title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/my_material_primary</item>
+        <item name="android:textSize">@dimen/size_title</item>
+    </style>
+
+    <style name="edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/m_edit_text_small</item>
+        <item name="android:layout_marginLeft">@dimen/m_edit_text_small</item>
+        <item name="android:layout_marginRight">@dimen/m_edit_text_small</item>
+        <item name="android:padding">@dimen/m_edit_text</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- ACTIVITY SHOW CLIENT -->
+    <style name="normal_row">
+        <item name="android:layout_marginTop">@dimen/m_between_rows</item>
+        <item name="android:layout_marginBottom">@dimen/m_between_rows</item>
+    </style>
+
+    <style name="value_text_column">
+        <item name="android:textSize">@dimen/size_standard</item>
+        <item name="android:layout_centerVertical">true</item>
+
+    </style>
+
+    <style name="properties_text_column" parent="value_text_column">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginRight">@dimen/m_between_rows</item>
+    </style>
 </resources>
