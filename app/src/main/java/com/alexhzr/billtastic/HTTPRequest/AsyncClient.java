@@ -12,6 +12,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.Header;
+
 public class AsyncClient {
     //private static final String BASE_URL = "https://billtasticjs-alexhzr.rhcloud.com/";
     private static final String BASE_URL = "http://192.168.1.102:3000";
@@ -22,12 +24,17 @@ public class AsyncClient {
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.setTimeout(10000);
         client.get(getAbsoluteUrl(url), params, responseHandler);
-        Log.v("AsyncClient", getAbsoluteUrl(url));
+        Log.v("AsyncClient - GET", getAbsoluteUrl(url));
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
-        Log.v("AsyncClient", getAbsoluteUrl(url));
+        Log.v("AsyncClient - POST", getAbsoluteUrl(url));
+    }
+
+    public static void delete(String url, Header[] headers, Context context, AsyncHttpResponseHandler responseHandler) {
+        client.delete(context, getAbsoluteUrl(url), headers, responseHandler);
+        Log.v("AsyncClient - DELETE", getAbsoluteUrl(url));
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {

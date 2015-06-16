@@ -1,6 +1,8 @@
 package com.alexhzr.billtastic.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -173,6 +175,37 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
                 break;
+
+            case 4:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.cb_remove_account_title);
+                builder.setMessage(R.string.cb_remove_account_body)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                AsyncClient.delete("/my_profile", null, context, new mJsonHttpResponseHandler(context) {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                        super.onSuccess(statusCode, headers, response);
+                                        try {
+                                            if (response.getInt(context.getString(R.string.server_response)) == 1) {
+                                                Toast.makeText(context, R.string.account_removed, Toast.LENGTH_SHORT).show();
+                                                AsyncClient.redirectToLogin(context);
+                                            } else AsyncClient.redirectToLogin(context);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        }).show();
 
         }
 

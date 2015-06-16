@@ -5,5 +5,8 @@
     <string name="nd_products">My products</string>
     <string name="nd_purchases">My purchases</string>
     <string name="nd_logout">Log out</string>
+    <string name="nd_remove_account">Remove my account</string>
     <string name="nd_dw_open">Select an option</string>
+    <string name="cb_remove_account_title">Remove account</string>
+    <string name="cb_remove_account_body">You are about to remove your account. This action cannot be undone. Are you sure?</string>
 </resources>

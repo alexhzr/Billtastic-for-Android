@@ -2,6 +2,9 @@
     <string name="app_name">Billtastic</string>
     <string name="fontawesome">fontawesome.ttf</string>
     <string name="sharedPreferences">com.alexhzr.billtastic.sharedPreferences</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="account_removed">Account removed</string>
 
     <!-- MENU STRINGS -->
     <string name="action_newproduct">New product</string>

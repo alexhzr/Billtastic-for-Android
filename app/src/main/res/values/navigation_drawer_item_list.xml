@@ -5,6 +5,7 @@
         <item>@string/nd_orders</item>
         <item>@string/nd_products</item>
         <item>@string/nd_logout</item>
+        <item>@string/nd_remove_account</item>
     </array>
 
     <array name="item_icons">
@@ -12,5 +13,6 @@
         <item>@string/icon_orders</item>
         <item>@string/icon_products</item>
         <item>@string/icon_logout</item>
+        <item>@string/icon_remove</item>
     </array>
 </resources>
