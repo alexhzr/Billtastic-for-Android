@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.alexhzr.billtastic.activities.NewProduct">
-    <item android:id="@+id/action_newproduct_submit" android:title="@string/action_neworder"
+    tools:context="com.alexhzr.billtastic.activities.NewOrder">
+
+    <item android:id="@+id/action_save_order" android:title="@string/action_save_order"
         android:orderInCategory="100" app:showAsAction="always" android:icon="@drawable/ic_done_white_48dp" />
 </menu>

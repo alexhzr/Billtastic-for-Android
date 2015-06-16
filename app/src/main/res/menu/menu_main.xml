@@ -14,8 +14,8 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_action_new" />
 
-    <item android:id="@+id/action_newtax"
-        android:title="@string/action_newtax"
+    <item android:id="@+id/action_new_order"
+        android:title="@string/action_neworder"
         android:showAsAction="always"
         android:icon="@drawable/ic_action_new" />
 </menu>

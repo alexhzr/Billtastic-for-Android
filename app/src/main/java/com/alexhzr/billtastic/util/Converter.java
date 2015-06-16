@@ -5,14 +5,14 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class MathController {
+public class Converter {
     public static String doubleToMoney(double value) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        return formatter.format(MathController.round(value, 2));
+        return formatter.format(Converter.round(value, 2));
     }
 
     public static String doubleToString(double value) {
-        return String.format(Locale.US, "%.2f", MathController.round(value, 2));
+        return String.format(Locale.US, "%.2f", Converter.round(value, 2));
     }
 
     public static double stringToDouble(String value){

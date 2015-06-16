@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hd_new_order_customer">Customer</string>
+    <string name="hd_new_order_product">Product</string>
+    <string name="hd_new_order_order_info">Order info</string>
+    <string name="hd_new_order_order_lines">Order lines</string>
+
+    <string name="new_order_dialog_title">Order saved</string>
+    <string name="new_order_dialog_body">Do you wish to see a PDF?</string>
+
+    <string name="h_new_order_customer">Customer</string>
+    <string name="h_new_order_product">Product</string>
+    <string name="h_new_order_product_amount">Amount</string>
+    <string name="h_new_order_sell_price">Sell price</string>
+    <string name="h_new_order_status">Status</string>
+
+    <string name="h_new_order_order_date">Order date</string>
+
+    <string name="new_order_options">More options</string>
+    <string name="new_order_price_format">Price format</string>
+    <string name="new_order_totals">Totals</string>
+    <string name="new_order_new_line">New line</string>
+    <string name="switch_gross">Gross</string>
+    <string name="switch_net">Net</string>
+    <string name="new_order_subtotal">Subtotal</string>
+    <string name="new_order_subtotal_tax_free">Tax free subtotal</string>
+    <string name="new_order_total_euros">Total</string>
+    <string name="new_order_no_products_yet">There are no products yet</string>
+    <string name="new_order_for">&#160;for&#160;</string>
+</resources>

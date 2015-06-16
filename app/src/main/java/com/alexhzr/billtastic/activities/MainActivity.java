@@ -76,6 +76,9 @@ public class MainActivity extends ActionBarActivity {
         } else if (id == R.id.action_newproduct) {
             startActivity(new Intent(this, NewProduct.class));
             return true;
+        } else if (id == R.id.action_new_order) {
+            startActivity(new Intent(this, NewOrder.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

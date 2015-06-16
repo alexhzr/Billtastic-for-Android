@@ -11,6 +11,7 @@
     <string name="icon_logout">&#xf08b;</string>
     <string name="icon_favorite_customers">&#xf005;</string>
     <string name="icon_no_favorite_customers">&#xf006;</string>
+    <string name="icon_save">&#xf0c7;</string>
     <string name="icon_new_line">&#xf055;</string>
     <string name="icon_products">&#xf02c;</string>
 </resources>

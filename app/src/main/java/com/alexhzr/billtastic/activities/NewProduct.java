@@ -18,7 +18,7 @@ import com.alexhzr.billtastic.adapters.TaxSpinnerAdapter;
 import com.alexhzr.billtastic.httpRequest.AsyncClient;
 import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.models.Tax;
-import com.alexhzr.billtastic.util.MathController;
+import com.alexhzr.billtastic.util.Converter;
 import com.alexhzr.billtastic.util.Validator;
 import com.loopj.android.http.RequestParams;
 
@@ -180,8 +180,8 @@ public class NewProduct extends ActionBarActivity {
                 }
                 if (view == purchase_price) {
                     if(!hasFocus && ((EditText) view).getText().toString().equals("")){
-                        purchase_price.setText(MathController.doubleToString(0.00));
-                    } else if (hasFocus && ((EditText) view).getText().toString().equals(MathController.doubleToString(0.00))){
+                        purchase_price.setText(Converter.doubleToString(0.00));
+                    } else if (hasFocus && ((EditText) view).getText().toString().equals(Converter.doubleToString(0.00))){
                         purchase_price.setText("");
                     }
                 }
@@ -195,37 +195,37 @@ public class NewProduct extends ActionBarActivity {
     }
 
     private void recalculatePrices(View v) {
-        cPurchasePrice = (MathController.stringToDouble(purchase_price.getText().toString()));
+        cPurchasePrice = (Converter.stringToDouble(purchase_price.getText().toString()));
         cTax = taxes.get(tax.getSelectedItemPosition()).getValue();
         cTax = cTax / 100;
 
         if (v.equals(benefit)) {
-            cBenefit = (MathController.stringToDouble(benefit.getText().toString())) / 100;
+            cBenefit = (Converter.stringToDouble(benefit.getText().toString())) / 100;
             cSellPrice = cPurchasePrice + (cPurchasePrice * cBenefit);
             cTaxPrice = cSellPrice + (cSellPrice * cTax);
 
-            sell_price.setText(MathController.doubleToString(cSellPrice));
-            tax_price.setText(MathController.doubleToString(cTaxPrice));
+            sell_price.setText(Converter.doubleToString(cSellPrice));
+            tax_price.setText(Converter.doubleToString(cTaxPrice));
 
         } else if (v.equals(sell_price)) {
-            cSellPrice = MathController.stringToDouble(sell_price.getText().toString());
+            cSellPrice = Converter.stringToDouble(sell_price.getText().toString());
             cTaxPrice = cSellPrice + (cSellPrice * cTax);
             cBenefit = (100 * (cSellPrice - cPurchasePrice)) / cPurchasePrice;
 
-            tax_price.setText(MathController.doubleToString(cTaxPrice));
-            benefit.setText(MathController.doubleToString(cBenefit));
+            tax_price.setText(Converter.doubleToString(cTaxPrice));
+            benefit.setText(Converter.doubleToString(cBenefit));
 
         } else if (v.equals(tax_price)) {
-            cTaxPrice = MathController.stringToDouble(tax_price.getText().toString());
+            cTaxPrice = Converter.stringToDouble(tax_price.getText().toString());
             cSellPrice = cTaxPrice / (1 + cTax);
             cBenefit = (100 * (cSellPrice - cPurchasePrice)) / cPurchasePrice;
 
-            sell_price.setText(MathController.doubleToString(cSellPrice));
-            benefit.setText(MathController.doubleToString(cBenefit));
+            sell_price.setText(Converter.doubleToString(cSellPrice));
+            benefit.setText(Converter.doubleToString(cBenefit));
 
         } else {
             cTaxPrice = cSellPrice + (cSellPrice * cTax);
-            tax_price.setText(MathController.doubleToString(cTaxPrice));
+            tax_price.setText(Converter.doubleToString(cTaxPrice));
         }
     }
 
