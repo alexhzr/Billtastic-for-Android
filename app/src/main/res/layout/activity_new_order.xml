@@ -143,6 +143,7 @@
                     android:id="@+id/newOrder_new_line"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
+                    android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/m_components"
                     android:gravity="center_vertical"
                     android:textColor="@color/my_material_primary"

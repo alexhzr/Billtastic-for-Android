@@ -46,10 +46,13 @@ public class AutoCompleteTextViewAdapter extends ArrayAdapter {
         }
 
         if (sugerencias.size() > position) {
-            if (sugerencias.get(position).getClass().getName().contains("Customer"))
+            if (sugerencias.get(position).getClass().getName().contains("Customer")) {
                 holder.title.setText(((Customer) sugerencias.get(position)).getName());
-            else if (sugerencias.get(position).getClass().getName().contains("Product"))
+                holder.obj = sugerencias.get(position);
+            } else if (sugerencias.get(position).getClass().getName().contains("Product")) {
                 holder.title.setText(((Product) sugerencias.get(position)).getReference());
+                holder.obj = sugerencias.get(position);
+            }
         }
 
         return convertView;
@@ -62,6 +65,11 @@ public class AutoCompleteTextViewAdapter extends ArrayAdapter {
 
     public static class ViewHolder {
         public TextView title;
+        public Object obj;
+
+        public Object getObject() {
+            return obj;
+        }
     }
 
     private class Filtro extends Filter {

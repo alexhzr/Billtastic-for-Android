@@ -46,6 +46,8 @@ public class NewOrder extends ActionBarActivity {
 
     private ArrayList<Object> customers;
     private ArrayList<Object> products;
+    AutoCompleteTextViewAdapter customerAdapter;
+    AutoCompleteTextViewAdapter productAdapter;
 
     private Hashtable<String, Integer> selectedProducts;
 
@@ -60,7 +62,7 @@ public class NewOrder extends ActionBarActivity {
         amount = (EditText) findViewById(R.id.newOrder_product_amount);
         status = (Spinner) findViewById(R.id.newOrder_state);
         noProductsYet = (TextView) findViewById(R.id.newOrder_no_products_yet);
-        newLine = (TextView) findViewById(R.id.newOrder_new_line);
+        newLine = (TextView) findViewById(R.id.newOrder_product_save);
         subtotal = (TextView) findViewById(R.id.newOrder_subtotal);
         total = (TextView) findViewById(R.id.newOrder_total);
         saveProduct = (TextView) findViewById(R.id.newOrder_product_save);
@@ -72,6 +74,31 @@ public class NewOrder extends ActionBarActivity {
         products = new ArrayList<>();
         selectedProducts = new Hashtable<>();
         loadData();
+        prepareView();
+    }
+
+    private void prepareView() {
+        newLine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = customer.getText().toString();
+                if (!query.equals("")) {
+                    AsyncClient.get("/api/product/search/"+query, null, new mJsonHttpResponseHandler(context) {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            try {
+                                if (response.getInt(context.getString(R.string.server_response)) != 2) {
+                                    //TODO: nuevo endpoint en servidor para que te devuelva sólo un objeto en función a la referencia que le pases (getOne)
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private void createLineView(final Product product, int amount) {
@@ -103,8 +130,8 @@ public class NewOrder extends ActionBarActivity {
                             customers = null;
                         }
                     }
-                    AutoCompleteTextViewAdapter adapter = new AutoCompleteTextViewAdapter(context, R.layout.simple_item_dropdown, customers);
-                    customer.setAdapter(adapter);
+                    customerAdapter = new AutoCompleteTextViewAdapter(context, R.layout.simple_item_dropdown, customers);
+                    customer.setAdapter(customerAdapter);
                 }
             }
         });
@@ -122,8 +149,8 @@ public class NewOrder extends ActionBarActivity {
                         } catch (JSONException e) {
                             product = null;
                         }
-                        AutoCompleteTextViewAdapter adapter = new AutoCompleteTextViewAdapter(context, R.layout.simple_item_dropdown, products);
-                        product.setAdapter(adapter);
+                        productAdapter = new AutoCompleteTextViewAdapter(context, R.layout.simple_item_dropdown, products);
+                        product.setAdapter(productAdapter);
                     }
                 }
             }
