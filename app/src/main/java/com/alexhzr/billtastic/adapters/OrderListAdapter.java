@@ -46,7 +46,7 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
             vh = (ViewHolder) convertView.getTag();
         }
         vh.customer.setText(data.get(position).getCustomer());
-        vh.order_date.setText(DateController.DateToString(data.get(position).getOrder_date()));
+        vh.order_date.setText(DateController.dateToString(data.get(position).getOrder_date()));
         vh.total.setText(String.valueOf(data.get(position).getTotal()));
         if (data.get(position).getState() == Order.State.PENDING)
             vh.pending.setText(String.valueOf(data.get(position).getPending()));

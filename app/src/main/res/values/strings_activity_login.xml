@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="s_login_username">Username</string>
+    <string name="s_login_password">Password</string>
+    <string name="s_login_submit">Login or register</string>
+    <string name="cb_login_remember">Remember me</string>
+
     <!-- Successes -->
     <string name="s_login_success">Logged in!</string>
 

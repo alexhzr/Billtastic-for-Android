@@ -1,4 +1,4 @@
-package com.alexhzr.billtastic.httpRequest;
+package com.alexhzr.billtastic.HTTPRequest;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
 public class AsyncClient {
-    private static final String BASE_URL = "https://billtasticjs-alexhzr.rhcloud.com/";
-    //private static final String BASE_URL = "http://192.168.1.26:3000";
+    //private static final String BASE_URL = "https://billtasticjs-alexhzr.rhcloud.com/";
+    private static final String BASE_URL = "http://192.168.1.102:3000";
     PersistentCookieStore cookieStore;
 
     private static AsyncHttpClient client = new AsyncHttpClient();

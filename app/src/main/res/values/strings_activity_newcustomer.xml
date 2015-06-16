@@ -15,4 +15,5 @@
     
     <string name="newcustomer_succeed">Customer created successfully</string>
     <string name="e_newcustomer_id_used">This ID is being used</string>
+    <string name="e_newcustomer_name_used">There is already a customer with that name</string>
 </resources>

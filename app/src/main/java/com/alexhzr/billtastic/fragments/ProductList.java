@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alexhzr.billtastic.HTTPRequest.AsyncClient;
+import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.adapters.ProductListAdapter;
-import com.alexhzr.billtastic.httpRequest.AsyncClient;
-import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.models.Product;
 import com.alexhzr.billtastic.util.SimpleDividerItemDecoration;
 

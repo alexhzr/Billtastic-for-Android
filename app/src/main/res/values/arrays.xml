@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="order_state_array">
+        <item>@string/s_orderlist_draft</item>
+        <item>@string/s_orderlist_paid</item>
+        <item>@string/s_orderlist_pending</item>
+    </array>
+</resources>

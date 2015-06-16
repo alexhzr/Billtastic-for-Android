@@ -14,4 +14,5 @@
     <string name="icon_save">&#xf0c7;</string>
     <string name="icon_new_line">&#xf055;</string>
     <string name="icon_products">&#xf02c;</string>
+    <string name="icon_edit">&#xf040;</string>
 </resources>

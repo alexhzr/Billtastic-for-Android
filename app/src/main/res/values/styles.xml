@@ -37,6 +37,23 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <!-- ACTIVITY LOGIN -->
+    <style name="login_edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/m_edit_text</item>
+        <item name="android:background">@drawable/login_edit_text</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="login_submit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:background">@drawable/login_submit</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
     <!-- ACTIVITY SHOW CLIENT -->
     <style name="normal_row">
         <item name="android:layout_marginTop">@dimen/m_between_rows</item>

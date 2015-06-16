@@ -1,7 +1,8 @@
-package com.alexhzr.billtastic.httpRequest;
+package com.alexhzr.billtastic.HTTPRequest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.alexhzr.billtastic.R;
@@ -16,9 +17,14 @@ import org.json.JSONObject;
 
 public class mJsonHttpResponseHandler extends JsonHttpResponseHandler {
     private Context context;
+    private View view;
 
     public mJsonHttpResponseHandler(Context context) {
         this.context = context;
+    }
+    public mJsonHttpResponseHandler(Context context, View v) {
+        this.context = context;
+        this.view = view;
     }
 
     @Override
@@ -37,15 +43,18 @@ public class mJsonHttpResponseHandler extends JsonHttpResponseHandler {
     @Override
     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
         AsyncClient.doOnFailure(context, statusCode);
+        if (this.view != null) view.setEnabled(true);
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
         AsyncClient.doOnFailure(context, statusCode);
+        if (this.view != null) view.setEnabled(true);
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
         AsyncClient.doOnFailure(context, statusCode);
+        if (this.view != null) view.setEnabled(true);
     }
 }

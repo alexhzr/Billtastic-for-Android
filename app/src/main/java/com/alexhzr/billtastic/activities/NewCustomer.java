@@ -1,7 +1,6 @@
 package com.alexhzr.billtastic.activities;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +9,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alexhzr.billtastic.HTTPRequest.AsyncClient;
+import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.httpRequest.AsyncClient;
-import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.util.Validator;
 import com.loopj.android.http.RequestParams;
 
@@ -89,17 +88,38 @@ public class NewCustomer extends ActionBarActivity {
                         if (response.getInt(context.getString(R.string.server_response)) == 2)
                             AsyncClient.redirectToLogin(context);
                         else if (response.getInt(context.getString(R.string.server_response)) == 3) {
-                            id.setBackgroundColor(Color.RED);
+                            id.setBackgroundColor(context.getResources().getColor(R.color.tab_red));
                             id.requestFocus();
                             Toast.makeText(context, R.string.e_newcustomer_id_used, Toast.LENGTH_SHORT).show();
                         } else if (response.getInt(context.getString(R.string.server_response)) == 4)
-                            newCustomer();
+                            existsName();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
         }
+    }
+
+    private void existsName() {
+        AsyncClient.get("/api/customer/check_name/" + name.getText().toString(), null, new mJsonHttpResponseHandler(this) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    if (response.getInt(context.getString(R.string.server_response)) == 2)
+                        AsyncClient.redirectToLogin(context);
+                    else if (response.getInt(context.getString(R.string.server_response)) == 3) {
+                        name.setBackgroundColor(context.getResources().getColor(R.color.tab_red));
+                        name.requestFocus();
+                        Toast.makeText(context, R.string.e_newcustomer_name_used, Toast.LENGTH_SHORT).show();
+                    } else if (response.getInt(context.getString(R.string.server_response)) == 4)
+                        newCustomer();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void newCustomer() {

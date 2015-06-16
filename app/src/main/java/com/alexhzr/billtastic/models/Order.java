@@ -22,7 +22,7 @@ public class Order {
     public Order(JSONObject json) {
         try {
             this._id = json.getString("_id");
-            this.order_date = DateController.StringToDate(json.getString("order_date"));
+            this.order_date = DateController.stringToDate(json.getString("order_date"));
             JSONObject customer = new JSONObject();
             customer = json.getJSONObject("customer");
             this.customer = customer.getString("name");

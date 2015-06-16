@@ -12,10 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alexhzr.billtastic.HTTPRequest.AsyncClient;
+import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.adapters.OrderListAdapter;
-import com.alexhzr.billtastic.httpRequest.AsyncClient;
-import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.models.Order;
 
 import org.apache.http.Header;

@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Product {
+    String _id;
     String reference;
     String description;
     double purchase_price;
@@ -13,6 +14,7 @@ public class Product {
 
     public Product(JSONObject json) {
         try {
+            this._id = json.getString("_id");
             this.reference = json.getString("reference");
             this.description = json.getString("description");
             this.sell_price = json.getDouble("sell_price");
@@ -22,6 +24,10 @@ public class Product {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public String get_id() {
+        return _id;
     }
 
     public String getReference() {

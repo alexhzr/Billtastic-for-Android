@@ -1,46 +1,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Login">
+    tools:context="com.alexhzr.billtastic.activities.Login">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_username"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp"
-        android:hint="Username"
-        android:text="test"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <EditText
-        android:inputType="textPassword"
-        android:text="test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_password"
-        android:layout_below="@+id/login_username"
-        android:layout_centerHorizontal="true"
-        android:hint="Password"
-        />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:src="@drawable/logo" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/login_submit"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="login" />
+            <EditText
+                android:id="@+id/login_username"
+                style="@style/login_edit_text"
+                android:hint="@string/s_login_username"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/login_password" />
 
-    <TextView
-        android:id="@+id/login_response"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="59dp"
-        android:layout_below="@+id/login_submit"
-        android:layout_centerHorizontal="true" />
+            <EditText
+                android:id="@+id/login_password"
+                style="@style/login_edit_text"
+                android:hint="@string/s_login_password"
+                android:inputType="textPassword" />
+
+            <CheckBox
+                android:id="@+id/cb_remember"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cb_login_remember"
+                android:checked="true"
+                android:layout_marginBottom="@dimen/m_components"/>
+
+            <Button
+                android:id="@+id/btLogin"
+                style="@style/login_submit"
+                android:onClick="login"
+                android:text="@string/s_login_submit" />
+        </LinearLayout>
+
 </RelativeLayout>

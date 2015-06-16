@@ -10,7 +10,8 @@
 
     <string name="h_new_order_customer">Customer</string>
     <string name="h_new_order_product">Product</string>
-    <string name="h_new_order_product_amount">Amount</string>
+    <string name="h_new_order_product_amount">Amount:&#160;</string>
+    <string name="h_new_order_total_line_price">Total price:&#160;</string>
     <string name="h_new_order_sell_price">Sell price</string>
     <string name="h_new_order_status">Status</string>
 
@@ -27,4 +28,8 @@
     <string name="new_order_total_euros">Total</string>
     <string name="new_order_no_products_yet">There are no products yet</string>
     <string name="new_order_for">&#160;for&#160;</string>
+
+    <string name="e_new_order_incomplete">Some fields are incomplete</string>
+    <string name="s_new_order_succeed">Order created successfully</string>
+    <string name="s_new_order_failed">Failed to create order</string>
 </resources>

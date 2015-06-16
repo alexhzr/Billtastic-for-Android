@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alexhzr.billtastic.HTTPRequest.AsyncClient;
+import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.httpRequest.AsyncClient;
-import com.alexhzr.billtastic.httpRequest.mJsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
