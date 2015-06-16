@@ -9,10 +9,10 @@ import com.alexhzr.billtastic.R;
 
 import java.util.Hashtable;
 
-public class FontController {
+public class FontHandler {
     private static Hashtable<String, Typeface> fontCache = new Hashtable<String, Typeface>();
 
-    private FontController() {
+    private FontHandler() {
     }
 
     public static Typeface getFont(String name, Context context) {
@@ -29,13 +29,13 @@ public class FontController {
     }
 
     public static void setFontToTextView(Context ctx, TextView tv, String text) {
-        Typeface t = FontController.getFont(ctx.getString(R.string.fontawesome), ctx);
+        Typeface t = FontHandler.getFont(ctx.getString(R.string.fontawesome), ctx);
         tv.setTypeface(t);
         tv.setText(text);
     }
 
     public static void setFontToButton(Context ctx, Button b, String text) {
-        Typeface t = FontController.getFont(ctx.getString(R.string.fontawesome), ctx);
+        Typeface t = FontHandler.getFont(ctx.getString(R.string.fontawesome), ctx);
         b.setTypeface(t);
         b.setText(text);
     }

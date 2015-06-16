@@ -38,6 +38,10 @@
             android:name=".activities.NewOrder"
             android:label="@string/title_activity_new_order" >
         </activity>
+        <activity
+            android:name=".activities.Register"
+            android:label="@string/title_activity_register" >
+        </activity>
     </application>
 
 </manifest>

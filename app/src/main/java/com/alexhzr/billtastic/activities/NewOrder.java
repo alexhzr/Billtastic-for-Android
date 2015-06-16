@@ -23,8 +23,8 @@ import com.alexhzr.billtastic.adapters.AutoCompleteTextViewAdapter;
 import com.alexhzr.billtastic.models.Customer;
 import com.alexhzr.billtastic.models.Product;
 import com.alexhzr.billtastic.util.Converter;
-import com.alexhzr.billtastic.util.DateController;
-import com.alexhzr.billtastic.util.FontController;
+import com.alexhzr.billtastic.util.DateHandler;
+import com.alexhzr.billtastic.util.FontHandler;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.loopj.android.http.RequestParams;
 
@@ -94,8 +94,8 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
 
         linesLayout = (LinearLayout) findViewById(R.id.newOrder_lines_layout);
 
-        FontController.setFontToTextView(context, saveProduct, context.getString(R.string.icon_new_line));
-        FontController.setFontToTextView(context, saveCustomer, context.getString(R.string.icon_save));
+        FontHandler.setFontToTextView(context, saveProduct, context.getString(R.string.icon_new_line));
+        FontHandler.setFontToTextView(context, saveCustomer, context.getString(R.string.icon_save));
 
         customers = new ArrayList<>();
         products = new ArrayList<>();
@@ -154,7 +154,7 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
                                     selectedCustomer = new Customer(response);
                                     customer.setEnabled(false);
                                     customer.setBackgroundColor(context.getResources().getColor(R.color.button_disabled));
-                                    FontController.setFontToTextView(context, saveCustomer, context.getString(R.string.icon_edit));
+                                    FontHandler.setFontToTextView(context, saveCustomer, context.getString(R.string.icon_edit));
                                     isCustomerSelected = true;
                                 } else if (response.getInt(context.getString(R.string.server_response)) == 2)
                                     AsyncClient.redirectToLogin(context);
@@ -167,7 +167,7 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
                 if (isCustomerSelected) {
                     customer.setEnabled(true);
                     customer.setBackgroundColor(Color.TRANSPARENT);
-                    FontController.setFontToTextView(context, saveCustomer, context.getString(R.string.icon_save));
+                    FontHandler.setFontToTextView(context, saveCustomer, context.getString(R.string.icon_save));
                     isCustomerSelected = false;
                 }
             }
@@ -314,7 +314,7 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
         if (datePickerDialog.getTag().equals(DATEPICKER_TAG)) {
-            orderDate.setText(DateController.toDisplayDate(day, month + 1, year));
+            orderDate.setText(DateHandler.toDisplayDate(day, month + 1, year));
             isDateSelected = true;
         }
     }

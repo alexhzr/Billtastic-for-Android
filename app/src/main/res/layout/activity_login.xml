@@ -21,14 +21,14 @@
                 android:src="@drawable/logo" />
 
             <EditText
-                android:id="@+id/login_username"
+                android:id="@+id/register_username"
                 style="@style/login_edit_text"
                 android:hint="@string/s_login_username"
                 android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/login_password" />
+                android:nextFocusForward="@+id/register_password" />
 
             <EditText
-                android:id="@+id/login_password"
+                android:id="@+id/register_password"
                 style="@style/login_edit_text"
                 android:hint="@string/s_login_password"
                 android:inputType="textPassword" />
@@ -47,6 +47,14 @@
                 style="@style/login_submit"
                 android:onClick="login"
                 android:text="@string/s_login_submit" />
+            
+            <Button
+                android:onClick="register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/my_material_primary"
+                android:background="@drawable/transparent_button"
+                android:text="@string/h_login_register_button"/>
         </LinearLayout>
 
 </RelativeLayout>

@@ -1,6 +1,6 @@
 package com.alexhzr.billtastic.models;
 
-import com.alexhzr.billtastic.util.DateController;
+import com.alexhzr.billtastic.util.DateHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +22,7 @@ public class Order {
     public Order(JSONObject json) {
         try {
             this._id = json.getString("_id");
-            this.order_date = DateController.stringToDate(json.getString("order_date"));
+            this.order_date = DateHandler.stringToDate(json.getString("order_date"));
             JSONObject customer = new JSONObject();
             customer = json.getJSONObject("customer");
             this.customer = customer.getString("name");

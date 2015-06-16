@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
-import com.alexhzr.billtastic.util.FontController;
+import com.alexhzr.billtastic.util.FontHandler;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter {
         } else vh = (ViewHolder) convertView.getTag();
 
         DrawerItem item = (DrawerItem) getItem(position);
-        FontController.setFontToTextView(context, vh.icon, item.getIcon());
+        FontHandler.setFontToTextView(context, vh.icon, item.getIcon());
         vh.name.setText(item.getName());
         return convertView;
     }

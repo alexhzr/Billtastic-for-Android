@@ -1,5 +1,6 @@
 package com.alexhzr.billtastic.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.alexhzr.billtastic.HTTPRequest.AsyncClient;
+import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.fragments.CustomerList;
 import com.alexhzr.billtastic.fragments.OrderListContainer;
@@ -22,10 +25,15 @@ import com.alexhzr.billtastic.fragments.ProductList;
 import com.alexhzr.billtastic.navigationDrawer.DrawerItem;
 import com.alexhzr.billtastic.navigationDrawer.NavigationDrawerAdapter;
 
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
     private Toolbar toolbar;
+    private Context context;
 
     private String[] tagTitles;
     private String[] icons;
@@ -39,8 +47,7 @@ public class MainActivity extends ActionBarActivity {
         none,
         CUSTOMER_LIST,
         ORDER_LIST,
-        PRODUCT_LIST,
-        PURCHASE_LIST
+        PRODUCT_LIST
     }
 
     public static FragmentList actualFragment;
@@ -49,6 +56,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = this;
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -145,12 +153,25 @@ public class MainActivity extends ActionBarActivity {
                 break;
 
             case 2:
-                Toast.makeText(this, "My purchases", Toast.LENGTH_SHORT).show();
+                fragment = new ProductList();
+                actualFragment = FragmentList.PRODUCT_LIST;
                 break;
 
             case 3:
-                fragment = new ProductList();
-                actualFragment = FragmentList.PRODUCT_LIST;
+                AsyncClient.get("/logout", null, new mJsonHttpResponseHandler(this) {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        try {
+                            if (response.getInt(context.getString(R.string.server_response)) == 1) {
+                                Toast.makeText(context, R.string.s_logged_out, Toast.LENGTH_SHORT).show();
+                                AsyncClient.redirectToLogin(context);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
                 break;
 
         }

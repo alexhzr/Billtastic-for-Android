@@ -3,14 +3,14 @@
     <array name="item_names">
         <item>@string/nd_customers</item>
         <item>@string/nd_orders</item>
-        <item>@string/nd_purchases</item>
         <item>@string/nd_products</item>
+        <item>@string/nd_logout</item>
     </array>
 
     <array name="item_icons">
         <item>@string/icon_customers</item>
         <item>@string/icon_orders</item>
-        <item>@string/icon_purchases</item>
         <item>@string/icon_products</item>
+        <item>@string/icon_logout</item>
     </array>
 </resources>

@@ -2,8 +2,9 @@
 <resources>
     <string name="s_login_username">Username</string>
     <string name="s_login_password">Password</string>
-    <string name="s_login_submit">Login or register</string>
+    <string name="s_login_submit">Login</string>
     <string name="cb_login_remember">Remember me</string>
+    <string name="h_login_register_button">Register</string>
 
     <!-- Successes -->
     <string name="s_login_success">Logged in!</string>

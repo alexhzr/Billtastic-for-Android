@@ -4,16 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alexhzr.billtastic.HTTPRequest.AsyncClient;
 import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
+import com.alexhzr.billtastic.util.SharedPreferencesHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -25,14 +26,19 @@ public class Login extends Activity {
     EditText username;
     EditText password;
     Context context;
+    CheckBox cb_remember_me;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = (EditText) findViewById(R.id.login_username);
-        password = (EditText) findViewById(R.id.login_password);
+        username = (EditText) findViewById(R.id.register_username);
+        password = (EditText) findViewById(R.id.register_password);
+        cb_remember_me = (CheckBox) findViewById(R.id.cb_remember);
         context = this.getApplicationContext();
+
+        username.setText(SharedPreferencesHandler.getString(context, "username"));
+        password.setText(SharedPreferencesHandler.getString(context, "password"));
     }
 
 
@@ -61,8 +67,13 @@ public class Login extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    Log.v("Login", String.valueOf(statusCode));
                     if (response.getInt(context.getString(R.string.server_response)) == 1) {
+                        if (cb_remember_me.isChecked()) {
+                            SharedPreferencesHandler.writeBoolean(context, "rememberMe", true);
+                            SharedPreferencesHandler.writeString(context, "username", username.getText().toString());
+                            SharedPreferencesHandler.writeString(context, "password", password.getText().toString());
+                        }
+
                         Toast.makeText(context, response.getString(context.getString(R.string.server_message)), Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(context, MainActivity.class);
                         startActivity(i);
@@ -76,5 +87,9 @@ public class Login extends Activity {
                 }
             }
         });
+    }
+
+    public void register(View v) {
+        startActivity(new Intent(this, Register.class));
     }
 }

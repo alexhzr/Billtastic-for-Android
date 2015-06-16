@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.models.Order;
-import com.alexhzr.billtastic.util.DateController;
-import com.alexhzr.billtastic.util.FontController;
+import com.alexhzr.billtastic.util.DateHandler;
+import com.alexhzr.billtastic.util.FontHandler;
 
 import java.util.ArrayList;
 
@@ -46,16 +46,16 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
             vh = (ViewHolder) convertView.getTag();
         }
         vh.customer.setText(data.get(position).getCustomer());
-        vh.order_date.setText(DateController.dateToString(data.get(position).getOrder_date()));
+        vh.order_date.setText(DateHandler.dateToString(data.get(position).getOrder_date()));
         vh.total.setText(String.valueOf(data.get(position).getTotal()));
         if (data.get(position).getState() == Order.State.PENDING)
             vh.pending.setText(String.valueOf(data.get(position).getPending()));
 
         if (data.get(position).isPrinted())
-            FontController.setFontToTextView(context, vh.ic_printed, context.getString(R.string.icon_printed));
+            FontHandler.setFontToTextView(context, vh.ic_printed, context.getString(R.string.icon_printed));
 
         if (data.get(position).isSent())
-            FontController.setFontToTextView(context, vh.ic_sent, context.getString(R.string.icon_sent));
+            FontHandler.setFontToTextView(context, vh.ic_sent, context.getString(R.string.icon_sent));
 
         return convertView;
     }

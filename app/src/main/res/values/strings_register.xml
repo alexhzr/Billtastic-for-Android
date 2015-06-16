@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="h_register_username">Username</string>
+    <string name="h_register_password">Password</string>
+    <string name="h_register_password_check">Please, repeat your password</string>
+    <string name="h_register_submit">Register</string>
+
+    <string name="s_register_succeed">Successfully registered</string>
+    <string name="s_register_failure">There was some error</string>
+    <string name="s_register_username_used">This username is already used</string>
+    <string name="s_register_password_not_match">Passwords do not match</string>
+</resources>

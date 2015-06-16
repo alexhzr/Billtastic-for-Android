@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.models.Customer;
-import com.alexhzr.billtastic.util.FontController;
+import com.alexhzr.billtastic.util.FontHandler;
 
 import java.util.ArrayList;
 
@@ -36,9 +36,9 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.name.setText(data.get(position).getName());
-        FontController.setFontToButton(context, holder.phone, context.getString(R.string.icon_phone));
-        FontController.setFontToButton(context, holder.email, context.getString(R.string.icon_email));
-        FontController.setFontToButton(context, holder.fav, context.getString(R.string.icon_favorite_customers));
+        FontHandler.setFontToButton(context, holder.phone, context.getString(R.string.icon_phone));
+        FontHandler.setFontToButton(context, holder.email, context.getString(R.string.icon_email));
+        FontHandler.setFontToButton(context, holder.fav, context.getString(R.string.icon_favorite_customers));
 
         holder.phone.setOnClickListener(new View.OnClickListener() {
             @Override

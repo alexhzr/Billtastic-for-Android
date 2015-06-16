@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.alexhzr.billtastic.activities.Register">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/logo" />
+
+        <EditText
+            android:id="@+id/register_username"
+            style="@style/login_edit_text"
+            android:hint="@string/h_register_username"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/register_password" />
+
+        <EditText
+            android:id="@+id/register_password"
+            style="@style/login_edit_text"
+            android:hint="@string/h_register_password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/register_password_check"
+            style="@style/login_edit_text"
+            android:hint="@string/h_register_password_check"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/register_submit"
+            style="@style/login_submit"
+            android:onClick="register"
+            android:text="@string/h_register_submit" />
+    </LinearLayout>
+
+
+</RelativeLayout>
