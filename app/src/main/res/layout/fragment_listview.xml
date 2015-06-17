@@ -2,29 +2,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/layout_contenedor"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/listview"
+        <LinearLayout
+            android:id="@+id/layout_contenedor"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:choiceMode="singleChoice"
-            android:divider="@color/my_material_divider"
-            android:dividerHeight="1dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/my_material_secondary_text"
-            android:textSize="36sp" />
-    </LinearLayout>
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:choiceMode="singleChoice"
+                android:divider="@color/my_material_divider"
+                android:dividerHeight="1dp" />
+
+            <TextView
+                android:id="@+id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/my_material_secondary_text"
+                android:textSize="36sp" />
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

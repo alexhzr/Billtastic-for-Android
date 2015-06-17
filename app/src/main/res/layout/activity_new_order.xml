@@ -168,26 +168,6 @@
                 <include layout="@layout/line_divider" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/new_order_subtotal"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/newOrder_subtotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/nueva_factura_layout_totales_iva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

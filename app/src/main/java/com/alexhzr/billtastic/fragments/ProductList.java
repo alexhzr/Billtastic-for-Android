@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class ProductList extends Fragment implements RecyclerItemClickListener.O
     private ArrayList<Product> products;
     private TextView noResults;
     private Context context;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public ProductList() {}
 
@@ -59,6 +61,16 @@ public class ProductList extends Fragment implements RecyclerItemClickListener.O
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, this));
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorScheme(R.color.my_material_primary, R.color.my_material_primary_light, R.color.my_material_accent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (products != null)
+                    products.clear();
+                loadProducts();
+            }
+        });
 
         noResults = (TextView) view.findViewById(R.id.empty);
 
@@ -77,6 +89,7 @@ public class ProductList extends Fragment implements RecyclerItemClickListener.O
                             e.printStackTrace();
                         }
                     mAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
                 } else {
                     products = null;
                     noResults.setText(R.string.s_no_products_found);

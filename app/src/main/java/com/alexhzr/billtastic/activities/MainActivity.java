@@ -76,6 +76,32 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean isDrawerOpened = dwLayout.isDrawerOpen(dwList);
+        
+        if(isDrawerOpened) {
+            menu.findItem(R.id.action_newclient).setVisible(false);
+            menu.findItem(R.id.action_new_order).setVisible(false);
+            menu.findItem(R.id.action_newproduct).setVisible(false);
+        } else {
+            if (actualFragment == FragmentList.CUSTOMER_LIST) {
+                menu.findItem(R.id.action_newclient).setVisible(true);
+            } else {
+                menu.findItem(R.id.action_newclient).setVisible(false);
+            }
+            if (actualFragment == FragmentList.ORDER_LIST) {
+                menu.findItem(R.id.action_new_order).setVisible(true);
+            } else {
+                menu.findItem(R.id.action_new_order).setVisible(false);
+            }
+            if (actualFragment == FragmentList.PRODUCT_LIST)
+                menu.findItem(R.id.action_newproduct).setVisible(true);
+            else menu.findItem(R.id.action_newproduct).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 

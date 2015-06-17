@@ -15,8 +15,7 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 
 public class AsyncClient {
-    //private static final String BASE_URL = "https://billtasticjs-alexhzr.rhcloud.com/";
-    private static final String BASE_URL = "http://192.168.1.102:3000";
+    private static final String BASE_URL = "https://billtasticjs-alexhzr.rhcloud.com/";
     PersistentCookieStore cookieStore;
 
     private static AsyncHttpClient client = new AsyncHttpClient();

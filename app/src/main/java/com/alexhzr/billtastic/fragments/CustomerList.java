@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class CustomerList extends Fragment implements RecyclerItemClickListener.
     private TextView noResults;
     private Context context;
     private ArrayList<Customer> customers;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public CustomerList() {}
 
@@ -47,7 +49,7 @@ public class CustomerList extends Fragment implements RecyclerItemClickListener.
         super.onCreate(savedInstanceState);
         context = getActivity();
         customers = new ArrayList<>();
-        loadProducts();
+        loadCustomers();
         mLayoutManager = new LinearLayoutManager(getActivity());
         mAdapter = new CustomerListAdapter(customers, getActivity());
     }
@@ -62,11 +64,21 @@ public class CustomerList extends Fragment implements RecyclerItemClickListener.
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, this));
         mRecyclerView.setAdapter(mAdapter);
         noResults = (TextView) view.findViewById(R.id.empty);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorScheme(R.color.my_material_primary, R.color.my_material_primary_light, R.color.my_material_accent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (customers != null)
+                    customers.clear();
+                loadCustomers();
+            }
+        });
 
         return view;
     }
 
-    private void loadProducts() {
+    private void loadCustomers() {
         AsyncClient.get("/api/customer", null, new mJsonHttpResponseHandler(context) {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -78,6 +90,7 @@ public class CustomerList extends Fragment implements RecyclerItemClickListener.
                             e.printStackTrace();
                         }
                     mAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
                 } else {
                     customers = null;
                     noResults.setText(R.string.s_no_customers_found);

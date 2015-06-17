@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class OrderList extends Fragment implements RecyclerItemClickListener.OnI
     private int customer_id;
     private boolean todas;
     private String query;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView noResults;
     private ListView listView;
 
@@ -64,7 +65,7 @@ public class OrderList extends Fragment implements RecyclerItemClickListener.OnI
         page = 0;
         context = getActivity();
         if (orders != null)
-            cargarLista();
+            loadOrders();
         inicializarListView();
     }
 
@@ -100,7 +101,7 @@ public class OrderList extends Fragment implements RecyclerItemClickListener.OnI
         outState.putBoolean("all", todas);
     }
 
-    private void cargarLista() {
+    private void loadOrders() {
         String url = null;
         switch (estadoFactura) {
             case 0:
@@ -119,14 +120,13 @@ public class OrderList extends Fragment implements RecyclerItemClickListener.OnI
                 super.onSuccess(statusCode, headers, response);
                 noResults.setText(R.string.s_no_orders_found);
                 listView.setEmptyView(noResults);
-                for (int i = 0; i < response.length(); i++) {
-                    JSONObject json = null;
+                if (orders != null)
                     orders.clear();
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject json;
                     try {
                         json = response.getJSONObject(i);
                         Order order = new Order(json);
-
-                        if (!orders.contains(order))
                             orders.add(order);
 
                         if (adapter != null)
@@ -135,6 +135,7 @@ public class OrderList extends Fragment implements RecyclerItemClickListener.OnI
                         orders = null;
                     }
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -146,6 +147,16 @@ public class OrderList extends Fragment implements RecyclerItemClickListener.OnI
                 noResults = (TextView) getView().findViewById(R.id.empty);
                 adapter = new OrderListAdapter(orders, getActivity(), R.layout.detail_order_list);
                 listView.setAdapter(adapter);
+                swipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeRefreshLayout);
+                swipeRefreshLayout.setColorScheme(R.color.my_material_primary, R.color.my_material_primary_light, R.color.my_material_accent);
+                swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        if (orders != null)
+                            orders.clear();
+                        loadOrders();
+                    }
+                });
                 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {

@@ -38,7 +38,6 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         holder.name.setText(data.get(position).getName());
         FontHandler.setFontToButton(context, holder.phone, context.getString(R.string.icon_phone));
         FontHandler.setFontToButton(context, holder.email, context.getString(R.string.icon_email));
-        FontHandler.setFontToButton(context, holder.fav, context.getString(R.string.icon_favorite_customers));
 
         holder.phone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +69,9 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         public TextView name;
         public Button phone;
         public Button email;
-        public Button fav;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            fav = (Button) itemLayoutView.findViewById(R.id.button_favourite_customer);
             name = (TextView) itemLayoutView.findViewById(R.id.detail_customerlist_name);
             phone = (Button) itemLayoutView.findViewById(R.id.detail_customerlist_phone);
             email = (Button) itemLayoutView.findViewById(R.id.detail_customerlist_email);

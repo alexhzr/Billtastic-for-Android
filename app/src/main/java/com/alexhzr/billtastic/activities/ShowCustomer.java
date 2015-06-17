@@ -37,7 +37,6 @@ public class ShowCustomer extends ActionBarActivity {
         loadCustomer(getIntent().getExtras().getString("_id"));
     }
 
-
     private void loadCustomer(String _id) {
         AsyncClient.get("/api/customer/get/" + _id, null, new mJsonHttpResponseHandler(this) {
             @Override

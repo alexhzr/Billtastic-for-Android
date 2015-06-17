@@ -44,7 +44,6 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
     private EditText amount;
     private Spinner status;
     private TextView noProductsYet;
-    private TextView subtotal;
     private TextView total;
     private TextView saveProduct;
     private TextView saveCustomer;
@@ -63,7 +62,6 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
     private JSONArray selectedProducts;
     private Customer selectedCustomer;
 
-    double mSubtotal;
     double mTotal;
 
     public static final String DATEPICKER_TAG = "datepicker";
@@ -83,7 +81,6 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
         amount = (EditText) findViewById(R.id.newOrder_product_amount);
         status = (Spinner) findViewById(R.id.newOrder_state);
         noProductsYet = (TextView) findViewById(R.id.newOrder_no_products_yet);
-        subtotal = (TextView) findViewById(R.id.newOrder_subtotal);
         total = (TextView) findViewById(R.id.newOrder_total);
         saveProduct = (TextView) findViewById(R.id.newOrder_product_save);
         saveCustomer = (TextView) findViewById(R.id.newOrder_customer_save);
@@ -101,7 +98,6 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
         products = new ArrayList<>();
         selectedProducts = new JSONArray();
         productsHelper = new ArrayList<>();
-        mSubtotal = 0;
         mTotal = 0;
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.order_state_array, android.R.layout.simple_spinner_item);
@@ -114,7 +110,6 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
 
     private void prepareView() {
         total.setText(Converter.doubleToMoney(mTotal));
-        subtotal.setText(Converter.doubleToMoney(mSubtotal));
 
         saveProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,10 +208,8 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
         detail.setTag(product);
         linesLayout.addView(detail);
 
-        mSubtotal = mSubtotal + (product.getSell_price() * amount);
         mTotal = mTotal + (product.getTax_price() * amount);
         total.setText(Converter.doubleToMoney(mTotal));
-        subtotal.setText(Converter.doubleToMoney(mSubtotal));
     }
 
     private void loadData() {
@@ -225,7 +218,7 @@ public class NewOrder extends ActionBarActivity implements DatePickerDialog.OnDa
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
                 if (!response.isNull(0)) {
-                    JSONObject json = new JSONObject();
+                    JSONObject json;
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             json = response.getJSONObject(i);
