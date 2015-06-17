@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CUSTOMER LIST -->
+    <string name="cb_remove_customer_title">Remove customer</string>
+    <string name="cb_remove_customer_body">Are you sure you want to remove this customer? This action cannot be undone</string>
+    <string name="cb_remove_customer_succeed">Customer removed</string>
+    <string name="cb_remove_customer_failure">Error removing customer</string>
+    <string name="cb_remove_customer_not_found">This customer does not exist</string>
+
+    <!-- PRODUCT LIST -->
+    <string name="cb_remove_product_title">Remove product</string>
+    <string name="cb_remove_product_body">Are you sure you want to remove this product? This action cannot be undone</string>
+    <string name="cb_remove_product_succeed">Product removed</string>
+    <string name="cb_remove_product_failure">Error removing product</string>
+    <string name="cb_remove_product_not_found">This product does not exist</string>
+
+    <!-- ORDER LIST -->
+    <string name="cb_remove_order_title">Remove order</string>
+    <string name="cb_remove_order_body">Are you sure you want to remove this order? This action cannot be undone</string>
+    <string name="cb_remove_order_succeed">Order removed</string>
+    <string name="cb_remove_order_failure">Error removing order</string>
+    <string name="cb_remove_order_not_found">This order does not exist</string>
+</resources>

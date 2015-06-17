@@ -66,6 +66,7 @@ public class MainActivity extends ActionBarActivity {
         populateDrawer();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        selectItem(0);
     }
 
     @Override

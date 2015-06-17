@@ -1,6 +1,8 @@
 package com.alexhzr.billtastic.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.adapters.OrderListAdapter;
 import com.alexhzr.billtastic.models.Order;
+import com.alexhzr.billtastic.util.RecyclerItemClickListener;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -25,7 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class OrderList extends Fragment {
+public class OrderList extends Fragment implements RecyclerItemClickListener.OnItemClickListener {
     private OrderListAdapter adapter;
     private ArrayList<Order> orders;
     private Context context;
@@ -38,11 +41,6 @@ public class OrderList extends Fragment {
     private ListView listView;
 
     private int estadoFactura;
-    private static final int ITEMS_BAJO_LISTA = 5;
-
-    private static final int CODIGO_CONSULTA_FACTURAS = 1;
-    private static final int CODIGO_PEDIR_PDF = 2;
-
 
     public static OrderList newInstance(boolean todasFacturas, String query, int idCliente, int estadoFactura) {
         Bundle bundle = new Bundle();
@@ -148,31 +146,59 @@ public class OrderList extends Fragment {
                 noResults = (TextView) getView().findViewById(R.id.empty);
                 adapter = new OrderListAdapter(orders, getActivity(), R.layout.detail_order_list);
                 listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        verFactura(position);
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle(R.string.cb_remove_order_title);
+                        builder.setMessage(R.string.cb_remove_order_body)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        AsyncClient.delete("/api/order/" + orders.get(position).get_id(), null, context, new mJsonHttpResponseHandler(context) {
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                                super.onSuccess(statusCode, headers, response);
+                                                try {
+                                                    if (response.getInt(context.getString(R.string.server_response)) == 1) {
+                                                        Toast.makeText(context, R.string.cb_remove_order_succeed, Toast.LENGTH_SHORT).show();
+                                                    } else
+                                                        Toast.makeText(context, R.string.cb_remove_order_failure, Toast.LENGTH_SHORT).show();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                }).show();
+                        return true;
                     }
                 });
+
+
             }
         }
+
     }
 
-    /*private void intentFactura(String respuesta) {
-        Intent intentCompartir = new Intent(context, LectorPDF.class);
-        intentCompartir.putExtra("pdf", respuesta);
-        context.startActivity(intentCompartir);
-    }*/
-
     private void verFactura(int position) {
-        Toast.makeText(getActivity(), "Verias facutra pedido "+orders.get(position).get_id(), Toast.LENGTH_SHORT).show();
-        /*String url = Constantes.PDF_URL + String.valueOf(orders.get(position).getIdImpresion());
-        AsyncTaskGet a = new AsyncTaskGet(context, this, url, true, CODIGO_PEDIR_PDF);
-        if (context.getClass().getName().contains(MostrarCliente.class.getSimpleName())) {
-            ((MostrarCliente) context).mostrarDialogo(context);
-        } else if (context.getClass().getName().contains(Principal.class.getSimpleName())) {
-            ((Principal) context).mostrarDialogo(context);
-        }
-        a.execute(new Hashtable<String, String>());*/
+        Toast.makeText(getActivity(), "Verias facutra pedido " + orders.get(position).get_id(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(View childView, int position) {
+
+    }
+
+    @Override
+    public void onItemLongPress(View childView, int position) {
+
     }
 }

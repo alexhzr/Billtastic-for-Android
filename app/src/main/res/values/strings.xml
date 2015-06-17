@@ -46,4 +46,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_new_order">NewOrder</string>
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_show_client">Show client</string>
 </resources>

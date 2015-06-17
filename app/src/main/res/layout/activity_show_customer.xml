@@ -1,0 +1,157 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.alexhzr.billtastic.activities.ShowCustomer"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/hd_showCustomer_information" />
+
+        </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/m_end_table"
+                android:shrinkColumns="1"
+                android:stretchColumns="1">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="@dimen/m_between_rows"
+                    android:layout_marginTop="@dimen/m_between_rows">
+
+                    <TextView
+                        style="@style/properties_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/s_showCustomer_name" />
+
+                    <TextView
+                        android:id="@+id/showCustomer_name"
+                        style="@style/value_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/normal_row"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        style="@style/properties_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/s_showCustomer_id" />
+
+                    <TextView
+                        android:id="@+id/showCustomer_id"
+                        style="@style/value_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/title"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/hd_showCustomer_contact" />
+
+                </LinearLayout>
+
+                <include layout="@layout/line_divider" />
+
+                <TableRow
+                    style="@style/normal_row"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        style="@style/properties_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/s_showCustomer_address" />
+
+                    <TextView
+                        android:id="@+id/showCustomer_address"
+                        style="@style/value_text_column"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/normal_row"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/properties_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/s_showCustomer_phone" />
+
+                    <TextView
+                        android:id="@+id/showCustomer_phone"
+                        style="@style/value_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+
+                <TableRow
+                    style="@style/normal_row"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        style="@style/properties_text_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/s_showCustomer_email" />
+
+                    <TextView
+                        android:id="@+id/showCustomer_email"
+                        style="@style/value_text_column"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

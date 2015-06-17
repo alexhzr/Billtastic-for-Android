@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FORM HEADERS -->
+    <string name="hd_showCustomer_information">Customer information</string>
+    <string name="hd_showCustomer_contact">Contact information</string>
+
+    <!-- LABELS -->
+    <string name="s_showCustomer_name">Name</string>
+    <string name="s_showCustomer_id">ID number</string>
+    <string name="s_showCustomer_address">Address</string>
+    <string name="s_showCustomer_phone">Phone</string>
+    <string name="s_showCustomer_email">Email</string>
+</resources>

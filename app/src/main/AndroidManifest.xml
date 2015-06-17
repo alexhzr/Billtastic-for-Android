@@ -42,6 +42,10 @@
             android:name=".activities.Register"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name=".activities.ShowCustomer"
+            android:label="@string/title_activity_show_client" >
+        </activity>
     </application>
 
 </manifest>

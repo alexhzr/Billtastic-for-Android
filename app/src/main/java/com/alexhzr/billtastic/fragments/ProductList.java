@@ -1,7 +1,9 @@
 package com.alexhzr.billtastic.fragments;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,21 +12,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alexhzr.billtastic.HTTPRequest.AsyncClient;
 import com.alexhzr.billtastic.HTTPRequest.mJsonHttpResponseHandler;
 import com.alexhzr.billtastic.R;
 import com.alexhzr.billtastic.adapters.ProductListAdapter;
 import com.alexhzr.billtastic.models.Product;
+import com.alexhzr.billtastic.util.RecyclerItemClickListener;
 import com.alexhzr.billtastic.util.SimpleDividerItemDecoration;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ProductList extends Fragment {
+public class ProductList extends Fragment implements RecyclerItemClickListener.OnItemClickListener {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -53,6 +58,8 @@ public class ProductList extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, this));
+
         noResults = (TextView) view.findViewById(R.id.empty);
 
         return view;
@@ -90,6 +97,43 @@ public class ProductList extends Fragment {
         });
     }
 
+    @Override
+    public void onItemClick(View childView, int position) {
+    }
 
+    @Override
+    public void onItemLongPress(View childView, final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.cb_remove_product_title);
+        builder.setMessage(R.string.cb_remove_product_body)
+                .setCancelable(false)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        AsyncClient.delete("/api/product/" + products.get(position).get_id(), null, context, new mJsonHttpResponseHandler(context) {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                super.onSuccess(statusCode, headers, response);
+                                try {
+                                    if (response.getInt(context.getString(R.string.server_response)) == 1) {
+                                        Toast.makeText(context, R.string.cb_remove_product_succeed, Toast.LENGTH_SHORT).show();
+                                    } else if (response.getInt(context.getString(R.string.server_response)) == 4) {
+                                        Toast.makeText(context, R.string.cb_remove_product_not_found, Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }).show();
+
+    }
 
 }
